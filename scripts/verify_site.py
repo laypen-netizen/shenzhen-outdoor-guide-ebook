@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-"""Verify the static ebook site without third-party dependencies."""
+"""Verify complete Web/H5 coverage, links, assets and ebook attachments."""
 
 from __future__ import annotations
 
 import hashlib
+import html
+import json
+import re
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -11,40 +14,41 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_HASHES = {
-    "downloads/shenzhen-outdoor-guide.pdf": (
-        "fda410a403f8fc91adcaa6febdadcbc644b545ab8b927652d3d1b3f0d1f5c32b"
-    ),
-    "downloads/shenzhen-outdoor-guide.docx": (
-        "d54f14db6638adfd54f7bd11fc683a45039630e50cc97e6c5511205d5bfd6e96"
-    ),
+    "downloads/shenzhen-outdoor-guide.pdf": "e9bb8acff7b3988b3aef5cfd0ed7af8c27c89a791db9113746967b455309c7d0",
+    "downloads/shenzhen-outdoor-guide.docx": "63d0dfe2df472666934c71adf2f7466ff37682b6927d0c20183d96bdbf92c52e",
 }
-REQUIRED_TEXT = (
-    "229 个景点",
-    "深圳十区",
-    "68",
-    "20",
+DETAIL_LABELS = (
+    "核心看点",
+    "适合谁",
+    "第一次怎样看",
+    "票务标签",
+    "公共交通",
     "自驾停车",
-    "季节与气候匹配",
-    "授权实景图",
+    "季节气候",
+    "当前状态",
+    "官方参考",
 )
 
 
-class AssetParser(HTMLParser):
+class PageParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.assets: set[str] = set()
         self.language: str | None = None
         self.title_count = 0
-        self.description_count = 0
+        self.h1_count = 0
+        self.viewport_count = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         if tag == "html":
             self.language = values.get("lang")
-        if tag == "title":
+        elif tag == "title":
             self.title_count += 1
-        if tag == "meta" and values.get("name") == "description":
-            self.description_count += 1
+        elif tag == "h1":
+            self.h1_count += 1
+        elif tag == "meta" and values.get("name") == "viewport":
+            self.viewport_count += 1
         for key in ("href", "src"):
             value = values.get(key)
             if value:
@@ -59,62 +63,173 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def resolve_local_asset(value: str) -> Path | None:
+def resolve_local_asset(page: Path, value: str) -> Path | None:
     split = urlsplit(value)
-    if split.scheme or split.netloc or value.startswith("#"):
+    if split.scheme or split.netloc or value.startswith(("#", "mailto:", "tel:")):
         return None
     clean_path = unquote(split.path)
-    if clean_path in ("", "./"):
-        return ROOT / "index.html"
+    if not clean_path:
+        return None
     if clean_path.startswith("/shenzhen-outdoor-guide-ebook/"):
-        clean_path = clean_path.removeprefix("/shenzhen-outdoor-guide-ebook/")
+        target = ROOT / clean_path.removeprefix("/shenzhen-outdoor-guide-ebook/")
     elif clean_path.startswith("/"):
         return None
-    return ROOT / clean_path
+    else:
+        target = page.parent / clean_path
+    target = target.resolve()
+    if ROOT not in target.parents and target != ROOT:
+        raise ValueError(f"asset escapes site root: {value}")
+    if clean_path.endswith("/") or target.is_dir():
+        target /= "index.html"
+    return target
+
+
+def verify_page(path: Path, errors: list[str]) -> None:
+    markup = path.read_text(encoding="utf-8")
+    parser = PageParser()
+    parser.feed(markup)
+    relative = path.relative_to(ROOT)
+
+    if parser.language != "zh-CN":
+        errors.append(f"{relative}: missing lang=zh-CN")
+    if parser.title_count != 1:
+        errors.append(f"{relative}: expected one title, got {parser.title_count}")
+    if parser.h1_count != 1:
+        errors.append(f"{relative}: expected one h1, got {parser.h1_count}")
+    if parser.viewport_count != 1:
+        errors.append(f"{relative}: expected one viewport meta")
+    if "file://" in markup:
+        errors.append(f"{relative}: contains file URL")
+
+    for value in parser.assets:
+        try:
+            target = resolve_local_asset(path, value)
+        except ValueError as exc:
+            errors.append(f"{relative}: {exc}")
+            continue
+        if target is not None and not target.exists():
+            errors.append(f"{relative}: missing linked asset {value}")
 
 
 def main() -> None:
-    index = ROOT / "index.html"
-    markup = index.read_text(encoding="utf-8")
-    parser = AssetParser()
-    parser.feed(markup)
-
+    data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+    places = data["places"]
+    districts = data["districts"]
+    expected_places = data["meta"]["place_count"]
     errors: list[str] = []
-    if parser.language != "zh-CN":
-        errors.append("index.html must declare lang=zh-CN")
-    if parser.title_count != 1:
-        errors.append("index.html must contain exactly one title")
-    if parser.description_count != 1:
-        errors.append("index.html must contain one meta description")
-    if "<iframe" in markup:
-        errors.append("PDF iframe must be inserted on demand, not loaded in initial HTML")
 
-    for phrase in REQUIRED_TEXT:
-        if phrase not in markup:
-            errors.append(f"missing required copy: {phrase}")
+    if len(places) != expected_places:
+        errors.append(f"place count: expected {expected_places}, got {len(places)}")
+    if len({spot["name"] for spot in places}) != expected_places:
+        errors.append("place names are not unique")
+    if len({spot["spot_number"] for spot in places}) != expected_places:
+        errors.append("place numbers are not unique")
+    if len(districts) != 10:
+        errors.append(f"district count: expected 10, got {len(districts)}")
+    museum_count = sum(spot["profile_key"] == "museum" for spot in places)
+    art_count = sum(spot["category"] == "美术馆 / 艺术空间" for spot in places)
+    if data["meta"]["museum_count"] != museum_count or museum_count < 68:
+        errors.append(f"museum count invalid: {data['meta']['museum_count']} / {museum_count}")
+    if data["meta"]["art_count"] != art_count or art_count < 20:
+        errors.append(f"official art-space count invalid: {data['meta']['art_count']} / {art_count}")
 
-    for value in sorted(parser.assets):
-        target = resolve_local_asset(value)
-        if target is not None and not target.exists():
-            errors.append(f"missing linked asset: {value}")
+    catalog_markup = (ROOT / "places/index.html").read_text(encoding="utf-8")
+    catalog_ids = re.findall(r'data-place-id="(\d{3})"', catalog_markup)
+    if len(catalog_ids) != expected_places or len(set(catalog_ids)) != expected_places:
+        errors.append(f"catalog card coverage invalid: {len(catalog_ids)} cards")
+    for phrase in ("关键词", "区域", "主题类型", "票务", "只看室内场馆", "只看我的收藏"):
+        if phrase not in catalog_markup:
+            errors.append(f"catalog missing filter: {phrase}")
+
+    home_markup = (ROOT / "index.html").read_text(encoding="utf-8")
+    if "iframe" in home_markup.lower():
+        errors.append("homepage must not embed the PDF")
+    for phrase in ("完整 Web / H5", f"{expected_places} 个景点", f"浏览全部 {expected_places} 个景点", "十区各有自己的深圳"):
+        if phrase not in home_markup:
+            errors.append(f"homepage missing Web/H5 promise: {phrase}")
+
+    detail_paths: list[Path] = []
+    image_paths: set[Path] = set()
+    for spot in places:
+        detail = ROOT / spot["detail_path"] / "index.html"
+        detail_paths.append(detail)
+        if not detail.exists():
+            errors.append(f'missing detail page: {spot["name"]}')
+            continue
+        markup = detail.read_text(encoding="utf-8")
+        if html.escape(spot["name"]) not in markup:
+            errors.append(f'{spot["name"]}: name missing from detail')
+        if html.escape(spot["intro"]) not in markup:
+            errors.append(f'{spot["name"]}: intro missing from detail')
+        for label in DETAIL_LABELS:
+            if label not in markup:
+                errors.append(f'{spot["name"]}: missing detail label {label}')
+        if spot["image"]["kind_label"] not in markup:
+            errors.append(f'{spot["name"]}: missing image-kind disclosure')
+        image_path = ROOT / spot["image"]["path"]
+        image_paths.add(image_path)
+        if not image_path.exists():
+            errors.append(f'{spot["name"]}: missing image')
+
+    if len(detail_paths) != expected_places:
+        errors.append(f"detail page count invalid: {len(detail_paths)}")
+    if len(image_paths) != expected_places:
+        errors.append(f"image mapping count invalid: {len(image_paths)}")
+    actual_images = set((ROOT / "assets/places").glob("*.jpg"))
+    if actual_images != image_paths:
+        errors.append("assets/places does not exactly match place image mapping")
+
+    for district in districts:
+        page = ROOT / "districts" / district["slug"] / "index.html"
+        if not page.exists():
+            errors.append(f'missing district page: {district["name"]}')
+        elif f'{district["name"]}全部 {district["count"]} 个景点' not in page.read_text(encoding="utf-8"):
+            errors.append(f'{district["name"]}: district count copy missing')
+
+    sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    sitemap_count = sitemap.count("<url>")
+    expected_sitemap_urls = expected_places + len(districts) + 3
+    if sitemap_count != expected_sitemap_urls:
+        errors.append(f"sitemap URLs: expected {expected_sitemap_urls}, got {sitemap_count}")
+
+    html_pages = sorted(ROOT.glob("*.html"))
+    html_pages += sorted((ROOT / "places").glob("**/index.html"))
+    html_pages += sorted((ROOT / "districts").glob("**/index.html"))
+    html_pages += [ROOT / "downloads/index.html"]
+    unique_html_pages = sorted(set(html_pages))
+    for page in unique_html_pages:
+        verify_page(page, errors)
 
     for relative, expected in EXPECTED_HASHES.items():
         path = ROOT / relative
         if not path.exists():
-            errors.append(f"missing ebook file: {relative}")
-            continue
-        actual = sha256(path)
-        if actual != expected:
-            errors.append(f"hash mismatch for {relative}: {actual}")
+            errors.append(f"missing ebook attachment: {relative}")
+        elif sha256(path) != expected:
+            errors.append(f"ebook hash mismatch: {relative}")
 
     if errors:
-        raise SystemExit("\n".join(f"ERROR: {error}" for error in errors))
+        raise SystemExit("\n".join(f"ERROR: {error}" for error in errors[:100]))
 
     print(
-        "site verification: ok\n"
-        f"local assets checked: {len(parser.assets)}\n"
-        "ebook hashes: ok\n"
-        "lazy PDF loading: ok"
+        json.dumps(
+            {
+                "status": "ok",
+                "places": len(places),
+                "districts": len(districts),
+                "detail_pages": len(detail_paths),
+                "place_images": len(image_paths),
+                "html_pages_checked": len(unique_html_pages),
+                "catalog_cards": len(catalog_ids),
+                "sitemap_urls": sitemap_count,
+                "museums": data["meta"]["museum_count"],
+                "art_spaces": data["meta"]["art_count"],
+                "real_photos": data["meta"]["real_photo_count"],
+                "ebook_hashes": "ok",
+                "errors": [],
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
     )
 
 
