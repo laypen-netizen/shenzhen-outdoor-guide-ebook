@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://laypen-netizen.github.io/shenzhen-outdoor-guide-ebook/sitemap.xml
