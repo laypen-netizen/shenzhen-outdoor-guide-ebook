@@ -234,9 +234,19 @@ def main() -> None:
     home_markup = (ROOT / "index.html").read_text(encoding="utf-8")
     if "iframe" in home_markup.lower():
         errors.append("homepage must not embed the PDF")
-    for phrase in ("完整 Web / H5", f"{expected_places} 个景点", f"浏览全部 {expected_places} 个景点", "十区各有自己的深圳"):
+    for phrase in (
+        "周末去哪",
+        "先查别人走过的路",
+        "条演示索引",
+        "当前为合规 MVP 演示数据",
+        "出发前，再核对一次。",
+    ):
         if phrase not in home_markup:
-            errors.append(f"homepage missing Web/H5 promise: {phrase}")
+            errors.append(f"homepage missing reconstructed index promise: {phrase}")
+    if 'src="/shenzhen-outdoor-guide-ebook/static-app.js"' not in home_markup:
+        errors.append("homepage missing static filter runtime")
+    if "/_next/" in home_markup:
+        errors.append("homepage must not depend on the Next.js runtime")
 
     detail_paths: list[Path] = []
     existing_detail_pages: list[Path] = []
@@ -306,20 +316,26 @@ def main() -> None:
 
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     sitemap_count = sitemap.count("<url>")
-    expected_sitemap_urls = expected_places + len(districts) + 3
+    expected_sitemap_urls = expected_places + len(districts) + 6
     if sitemap_count != expected_sitemap_urls:
         errors.append(f"sitemap URLs: expected {expected_sitemap_urls}, got {sitemap_count}")
 
     html_pages = sorted(ROOT.glob("*.html"))
     html_pages += sorted((ROOT / "places").glob("**/index.html"))
     html_pages += sorted((ROOT / "districts").glob("**/index.html"))
-    html_pages += [ROOT / "downloads/index.html"]
+    static_shell_pages = {
+        ROOT / "index.html",
+        ROOT / "rating/index.html",
+        ROOT / "source-status/index.html",
+        ROOT / "takedown/index.html",
+    }
+    html_pages += [ROOT / "downloads/index.html", *sorted(static_shell_pages - {ROOT / "index.html"})]
     unique_html_pages = sorted(set(html_pages))
     expected_update_label = f"更新于 {data['meta']['updated_at']}"
     for page in unique_html_pages:
         verify_page(page, errors)
         markup = page.read_text(encoding="utf-8")
-        if page != ROOT / "404.html" and expected_update_label not in markup:
+        if page != ROOT / "404.html" and page not in static_shell_pages and expected_update_label not in markup:
             errors.append(f"{page.relative_to(ROOT)}: stale or missing update date")
         card_image_count = markup.count('class="place-card-image"')
         if card_image_count and markup.count('width="1200" height="540"') < card_image_count:
