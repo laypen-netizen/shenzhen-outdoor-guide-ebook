@@ -612,7 +612,7 @@ button {
   position: relative;
   display: block;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 20 / 9;
   background: var(--green-soft);
 }
 
@@ -1048,14 +1048,14 @@ button {
 .detail-hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.02fr) minmax(390px, 0.98fr);
-  align-items: center;
-  gap: 62px;
+  align-items: start;
+  gap: 44px;
 }
 
 .detail-image-wrap {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  margin: 0;
   background: var(--green-soft);
   border-radius: 3px 23px 23px 3px;
   box-shadow: var(--shadow);
@@ -1064,8 +1064,21 @@ button {
 .detail-image-wrap img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 20 / 9;
   object-fit: cover;
+}
+
+.detail-image-wrap .image-kind {
+  position: static;
+  display: flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 0;
+  backdrop-filter: none;
 }
 
 .detail-title .card-tags > span {
@@ -1352,6 +1365,14 @@ button {
 .download-card p {
   margin: 0 0 28px;
   color: var(--muted);
+}
+
+.downloads-page .section {
+  padding-block: 56px;
+}
+
+.download-hero .page-width {
+  padding-block: 44px 50px;
 }
 
 .site-footer {
@@ -1713,7 +1734,12 @@ button {
   }
 
   .detail-title h1 {
-    font-size: 43px;
+    font-size: clamp(30px, 9.5vw, 40px);
+  }
+
+  .detail-image-wrap .image-kind {
+    min-height: 34px;
+    font-size: 11px;
   }
 
   .detail-intro {

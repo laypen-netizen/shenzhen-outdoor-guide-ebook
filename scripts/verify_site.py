@@ -13,9 +13,10 @@ from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
+PLACE_ID_REGISTRY = ROOT / "data/place_ids.json"
 EXPECTED_HASHES = {
-    "downloads/shenzhen-outdoor-guide.pdf": "e9bb8acff7b3988b3aef5cfd0ed7af8c27c89a791db9113746967b455309c7d0",
-    "downloads/shenzhen-outdoor-guide.docx": "63d0dfe2df472666934c71adf2f7466ff37682b6927d0c20183d96bdbf92c52e",
+    "downloads/shenzhen-outdoor-guide.pdf": "ba889c0f6ffeb98ccd8123310bf972f5a48cc50279a9d390e72f806fbf493ee1",
+    "downloads/shenzhen-outdoor-guide.docx": "2ece4f86c50a738252193881ec0ab15da5d797f36066349da6126fa251ccf087",
 }
 DETAIL_LABELS = (
     "核心看点",
@@ -118,6 +119,20 @@ def main() -> None:
     expected_places = data["meta"]["place_count"]
     errors: list[str] = []
 
+    if not PLACE_ID_REGISTRY.exists():
+        errors.append("missing stable place ID registry: data/place_ids.json")
+    else:
+        registry = json.loads(PLACE_ID_REGISTRY.read_text(encoding="utf-8"))
+        registry_rows = registry.get("places", [])
+        registry_map = {row["name"]: row["spot_number"] for row in registry_rows}
+        exported_map = {spot["name"]: spot["spot_number"] for spot in places}
+        if len(registry_rows) != len(registry_map):
+            errors.append("stable place ID registry contains duplicate names")
+        if len(set(registry_map.values())) != len(registry_map):
+            errors.append("stable place ID registry contains duplicate IDs")
+        if registry_map != exported_map:
+            errors.append("exported place IDs do not match the stable registry")
+
     if len(places) != expected_places:
         errors.append(f"place count: expected {expected_places}, got {len(places)}")
     if len({spot["name"] for spot in places}) != expected_places:
@@ -164,8 +179,19 @@ def main() -> None:
         for label in DETAIL_LABELS:
             if label not in markup:
                 errors.append(f'{spot["name"]}: missing detail label {label}')
+        if 'width="1200" height="540"' not in markup:
+            errors.append(f'{spot["name"]}: detail image dimensions do not match exported card')
         if spot["image"]["kind_label"] not in markup:
             errors.append(f'{spot["name"]}: missing image-kind disclosure')
+        if spot["image"]["kind"] == "real_photo":
+            for field in ("description", "detail_url", "artist", "license", "license_url"):
+                value = spot["image"].get(field, "")
+                if not value:
+                    errors.append(f'{spot["name"]}: real photo missing {field}')
+                elif html.escape(value, quote=True) not in markup:
+                    errors.append(f'{spot["name"]}: real photo attribution missing from detail ({field})')
+        elif not spot["image"].get("description"):
+            errors.append(f'{spot["name"]}: editorial image missing description')
         image_path = ROOT / spot["image"]["path"]
         image_paths.add(image_path)
         if not image_path.exists():
@@ -197,8 +223,17 @@ def main() -> None:
     html_pages += sorted((ROOT / "districts").glob("**/index.html"))
     html_pages += [ROOT / "downloads/index.html"]
     unique_html_pages = sorted(set(html_pages))
+    expected_update_label = f"更新于 {data['meta']['updated_at']}"
     for page in unique_html_pages:
         verify_page(page, errors)
+        markup = page.read_text(encoding="utf-8")
+        if page != ROOT / "404.html" and expected_update_label not in markup:
+            errors.append(f"{page.relative_to(ROOT)}: stale or missing update date")
+        card_image_count = markup.count('class="place-card-image"')
+        if card_image_count and markup.count('width="1200" height="540"') < card_image_count:
+            errors.append(
+                f"{page.relative_to(ROOT)}: place-card images do not match the exported 20:9 card ratio"
+            )
 
     for relative, expected in EXPECTED_HASHES.items():
         path = ROOT / relative

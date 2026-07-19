@@ -6,12 +6,14 @@ from __future__ import annotations
 import argparse
 import importlib
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+PLACE_ID_REGISTRY = ROOT / "data/place_ids.json"
 DISTRICT_SLUGS = {
     "福田区": "futian",
     "罗湖区": "luohu",
@@ -54,7 +56,57 @@ def reset_source_modules() -> None:
             del sys.modules[name]
 
 
-def export(source_dir: Path) -> dict[str, object]:
+def load_stable_place_ids(registry_path: Path, baseline_path: Path | None) -> dict[str, str]:
+    source = registry_path if registry_path.exists() else baseline_path
+    if source is None or not source.exists():
+        raise FileNotFoundError(
+            "stable place ID registry is missing; bootstrap it with --id-baseline <historical places.json>"
+        )
+
+    payload = json.loads(source.read_text(encoding="utf-8"))
+    rows = payload.get("places", [])
+    place_ids: dict[str, str] = {}
+    used_ids: set[str] = set()
+    for row in rows:
+        name = row.get("name", "")
+        spot_number = row.get("spot_number", "")
+        if not name or not re.fullmatch(r"\d{3}", spot_number):
+            raise ValueError(f"invalid place ID row in {source}: {row!r}")
+        if name in place_ids or spot_number in used_ids:
+            raise ValueError(f"duplicate place name or ID in {source}: {row!r}")
+        place_ids[name] = spot_number
+        used_ids.add(spot_number)
+    if not place_ids:
+        raise ValueError(f"stable place ID source is empty: {source}")
+    return place_ids
+
+
+def write_stable_place_ids(registry_path: Path, place_ids: dict[str, str]) -> None:
+    rows = [
+        {"name": name, "spot_number": spot_number}
+        for name, spot_number in sorted(place_ids.items(), key=lambda item: int(item[1]))
+    ]
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+    registry_path.write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "contract": "Existing public IDs are permanent; newly discovered places receive the next unused ID.",
+                "places": rows,
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
+def export(
+    source_dir: Path,
+    registry_path: Path = PLACE_ID_REGISTRY,
+    baseline_path: Path | None = None,
+) -> dict[str, object]:
     source_dir = source_dir.resolve()
     if not (source_dir / "place_enrichment.py").exists():
         raise FileNotFoundError(f"not an ebook source directory: {source_dir}")
@@ -70,23 +122,42 @@ def export(source_dir: Path) -> dict[str, object]:
     image_manifest = json.loads(
         (source_dir / "assets/image_manifest.json").read_text(encoding="utf-8")
     )
+    source_places = list(place_enrichment.unique_place_rows())
+    stable_ids = load_stable_place_ids(registry_path, baseline_path)
+    source_names = {spot["name"] for spot in source_places}
+    missing_names = set(stable_ids) - source_names
+    if missing_names:
+        sample = ", ".join(sorted(missing_names)[:5])
+        raise ValueError(f"source removed registered places without an ID migration: {sample}")
+
+    next_id = max(int(spot_number) for spot_number in stable_ids.values()) + 1
+    for spot in source_places:
+        name = spot["name"]
+        if name not in stable_ids:
+            stable_ids[name] = f"{next_id:03d}"
+            next_id += 1
+
     exported_places: list[dict[str, object]] = []
     image_dir = ROOT / "assets/places"
     image_dir.mkdir(parents=True, exist_ok=True)
 
-    for spot in place_enrichment.unique_place_rows():
+    for spot in source_places:
         name = spot["name"]
+        stable_number = stable_ids[name]
         image_record = image_manifest[name]
-        image_name = f'{spot["spot_number"]}.jpg'
+        image_name = f"{stable_number}.jpg"
         source_image = source_dir / image_record["file"]
         target_image = image_dir / image_name
         shutil.copy2(source_image, target_image)
 
+        description = str(image_record["description"]).strip()
+        if image_record["kind"] == "real_photo" and name not in description:
+            description = f"{name}实景：{description}"
         image = {
             "path": f"assets/places/{image_name}",
             "kind": image_record["kind"],
             "kind_label": "授权实景图" if image_record["kind"] == "real_photo" else "编辑配图·非现场实景",
-            "description": image_record["description"],
+            "description": description,
             "detail_url": image_record.get("detail_url", ""),
             "artist": image_record.get("artist", ""),
             "license": image_record.get("license", ""),
@@ -97,13 +168,14 @@ def export(source_dir: Path) -> dict[str, object]:
         exported_places.append(
             {
                 **public_spot,
+                "spot_number": stable_number,
                 "highlights": list(spot["highlights"]),
                 "district_primary": district,
                 "district_slug": DISTRICT_SLUGS[district],
                 "profile_label": PROFILE_LABELS[spot["profile_key"]],
                 "ticket_kind": ticket_kind(spot["ticket"]),
                 "indoor": spot["profile_key"] in {"museum", "art", "science"},
-                "detail_path": f'places/{spot["spot_number"]}/',
+                "detail_path": f"places/{stable_number}/",
                 "image": image,
             }
         )
@@ -123,11 +195,11 @@ def export(source_dir: Path) -> dict[str, object]:
             }
         )
 
-    return {
+    payload = {
         "meta": {
             "title": "深圳户外景点指南",
             "edition": "2026 年 7 月版",
-            "updated_at": "2026-07-18",
+            "updated_at": "2026-07-19",
             "place_count": len(exported_places),
             "district_count": len(districts),
             "museum_count": sum(spot["profile_key"] == "museum" for spot in exported_places),
@@ -138,15 +210,23 @@ def export(source_dir: Path) -> dict[str, object]:
         "profiles": PROFILE_LABELS,
         "places": exported_places,
     }
+    write_stable_place_ids(registry_path, stable_ids)
+    return payload
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source-dir", required=True, type=Path)
     parser.add_argument("--output", type=Path, default=ROOT / "data/places.json")
+    parser.add_argument("--registry", type=Path, default=PLACE_ID_REGISTRY)
+    parser.add_argument(
+        "--id-baseline",
+        type=Path,
+        help="historical places.json used only to bootstrap a missing stable ID registry",
+    )
     args = parser.parse_args()
 
-    payload = export(args.source_dir)
+    payload = export(args.source_dir, args.registry, args.id_baseline)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",

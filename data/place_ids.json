@@ -1,0 +1,1326 @@
+{
+  "schema_version": 1,
+  "contract": "Existing public IDs are permanent; newly discovered places receive the next unused ID.",
+  "places": [
+    {
+      "name": "莲花山公园",
+      "spot_number": "001"
+    },
+    {
+      "name": "香蜜公园",
+      "spot_number": "002"
+    },
+    {
+      "name": "深圳国际园林花卉博览园",
+      "spot_number": "003"
+    },
+    {
+      "name": "深圳中心公园",
+      "spot_number": "004"
+    },
+    {
+      "name": "笔架山公园",
+      "spot_number": "005"
+    },
+    {
+      "name": "梅林山公园",
+      "spot_number": "006"
+    },
+    {
+      "name": "福田红树林生态公园",
+      "spot_number": "007"
+    },
+    {
+      "name": "荔枝公园",
+      "spot_number": "008"
+    },
+    {
+      "name": "福田河碧道",
+      "spot_number": "009"
+    },
+    {
+      "name": "新洲河碧道",
+      "spot_number": "010"
+    },
+    {
+      "name": "华强北步行街",
+      "spot_number": "011"
+    },
+    {
+      "name": "深圳市民中心",
+      "spot_number": "012"
+    },
+    {
+      "name": "深圳市工业展览馆",
+      "spot_number": "013"
+    },
+    {
+      "name": "深圳市科学馆",
+      "spot_number": "014"
+    },
+    {
+      "name": "深圳燃气科学馆",
+      "spot_number": "015"
+    },
+    {
+      "name": "深圳博物馆古代艺术馆",
+      "spot_number": "016"
+    },
+    {
+      "name": "深圳博物馆历史民俗馆",
+      "spot_number": "017"
+    },
+    {
+      "name": "深圳市改革开放展览馆",
+      "spot_number": "018"
+    },
+    {
+      "name": "深圳市福田区华强北博物馆",
+      "spot_number": "019"
+    },
+    {
+      "name": "深圳市福田区皇岗博物馆",
+      "spot_number": "020"
+    },
+    {
+      "name": "深圳钢琴博物馆",
+      "spot_number": "021"
+    },
+    {
+      "name": "深圳市福田区水围雅石艺术博物馆",
+      "spot_number": "022"
+    },
+    {
+      "name": "深圳市棋国象棋博物馆",
+      "spot_number": "023"
+    },
+    {
+      "name": "深圳市大观茶具博物馆",
+      "spot_number": "024"
+    },
+    {
+      "name": "深圳市卓建法律博物馆",
+      "spot_number": "025"
+    },
+    {
+      "name": "深圳图画书博物馆",
+      "spot_number": "026"
+    },
+    {
+      "name": "深圳市关山月美术馆",
+      "spot_number": "027"
+    },
+    {
+      "name": "深圳市当代艺术与城市规划馆",
+      "spot_number": "028"
+    },
+    {
+      "name": "福田美术馆",
+      "spot_number": "029"
+    },
+    {
+      "name": "木星美术馆",
+      "spot_number": "030"
+    },
+    {
+      "name": "新新美术馆",
+      "spot_number": "031"
+    },
+    {
+      "name": "皇岗公园",
+      "spot_number": "032"
+    },
+    {
+      "name": "儿童乐园",
+      "spot_number": "033"
+    },
+    {
+      "name": "皇岗老村",
+      "spot_number": "034"
+    },
+    {
+      "name": "福荣都市绿道",
+      "spot_number": "035"
+    },
+    {
+      "name": "梅林绿道",
+      "spot_number": "036"
+    },
+    {
+      "name": "梧桐山风景名胜区",
+      "spot_number": "037"
+    },
+    {
+      "name": "仙湖植物园",
+      "spot_number": "038"
+    },
+    {
+      "name": "东湖公园",
+      "spot_number": "039"
+    },
+    {
+      "name": "洪湖公园",
+      "spot_number": "040"
+    },
+    {
+      "name": "人民公园",
+      "spot_number": "041"
+    },
+    {
+      "name": "翠竹公园",
+      "spot_number": "042"
+    },
+    {
+      "name": "银湖山郊野公园",
+      "spot_number": "043"
+    },
+    {
+      "name": "罗湖体育休闲公园",
+      "spot_number": "044"
+    },
+    {
+      "name": "东门老街",
+      "spot_number": "045"
+    },
+    {
+      "name": "渔民村",
+      "spot_number": "046"
+    },
+    {
+      "name": "清水河铁路景观",
+      "spot_number": "047"
+    },
+    {
+      "name": "梧桐山艺术小镇",
+      "spot_number": "048"
+    },
+    {
+      "name": "深圳古生物博物馆",
+      "spot_number": "049"
+    },
+    {
+      "name": "深圳市罗湖区惠风古陶博物馆",
+      "spot_number": "050"
+    },
+    {
+      "name": "深圳玺宝楼青瓷博物馆",
+      "spot_number": "051"
+    },
+    {
+      "name": "深圳市金石艺术博物馆",
+      "spot_number": "052"
+    },
+    {
+      "name": "深圳市苏六河沉香博物馆",
+      "spot_number": "053"
+    },
+    {
+      "name": "深圳应急管理博物馆",
+      "spot_number": "054"
+    },
+    {
+      "name": "深圳珠宝博物馆",
+      "spot_number": "055"
+    },
+    {
+      "name": "深圳美术馆（东湖馆）",
+      "spot_number": "056"
+    },
+    {
+      "name": "深圳画院美术馆",
+      "spot_number": "057"
+    },
+    {
+      "name": "罗湖美术馆",
+      "spot_number": "058"
+    },
+    {
+      "name": "仙桐体育公园",
+      "spot_number": "059"
+    },
+    {
+      "name": "红岗公园",
+      "spot_number": "060"
+    },
+    {
+      "name": "围岭公园",
+      "spot_number": "061"
+    },
+    {
+      "name": "湖贝南坊",
+      "spot_number": "062"
+    },
+    {
+      "name": "东江游击队指挥部旧址",
+      "spot_number": "063"
+    },
+    {
+      "name": "淘金山绿道",
+      "spot_number": "064"
+    },
+    {
+      "name": "梧桐绿道",
+      "spot_number": "065"
+    },
+    {
+      "name": "深圳湾公园",
+      "spot_number": "066"
+    },
+    {
+      "name": "深圳人才公园",
+      "spot_number": "067"
+    },
+    {
+      "name": "前海石公园",
+      "spot_number": "068"
+    },
+    {
+      "name": "大沙河生态长廊",
+      "spot_number": "069"
+    },
+    {
+      "name": "塘朗山郊野公园",
+      "spot_number": "070"
+    },
+    {
+      "name": "南山公园",
+      "spot_number": "071"
+    },
+    {
+      "name": "小南山公园",
+      "spot_number": "072"
+    },
+    {
+      "name": "荔林公园",
+      "spot_number": "073"
+    },
+    {
+      "name": "中山公园",
+      "spot_number": "074"
+    },
+    {
+      "name": "华侨城国家湿地公园",
+      "spot_number": "075"
+    },
+    {
+      "name": "南头古城",
+      "spot_number": "076"
+    },
+    {
+      "name": "赤湾左炮台",
+      "spot_number": "077"
+    },
+    {
+      "name": "海上世界",
+      "spot_number": "078"
+    },
+    {
+      "name": "华侨城创意文化园",
+      "spot_number": "079"
+    },
+    {
+      "name": "深圳湾文化广场",
+      "spot_number": "080"
+    },
+    {
+      "name": "西丽湖",
+      "spot_number": "081"
+    },
+    {
+      "name": "南山能源生态园",
+      "spot_number": "082"
+    },
+    {
+      "name": "云城公园",
+      "spot_number": "083"
+    },
+    {
+      "name": "深圳市南山博物馆",
+      "spot_number": "084"
+    },
+    {
+      "name": "深圳市南山区南头古城博物馆",
+      "spot_number": "085"
+    },
+    {
+      "name": "深圳市南山区天后博物馆",
+      "spot_number": "086"
+    },
+    {
+      "name": "招商局历史博物馆",
+      "spot_number": "087"
+    },
+    {
+      "name": "深圳中国钢结构博物馆",
+      "spot_number": "088"
+    },
+    {
+      "name": "深圳南山法律文化博物馆",
+      "spot_number": "089"
+    },
+    {
+      "name": "何香凝美术馆",
+      "spot_number": "090"
+    },
+    {
+      "name": "深圳大学美术馆",
+      "spot_number": "091"
+    },
+    {
+      "name": "雅昌艺术中心",
+      "spot_number": "092"
+    },
+    {
+      "name": "华侨城当代艺术中心（华·美术馆）",
+      "spot_number": "093"
+    },
+    {
+      "name": "桂湾公园",
+      "spot_number": "094"
+    },
+    {
+      "name": "文天祥纪念公园",
+      "spot_number": "095"
+    },
+    {
+      "name": "荔香公园",
+      "spot_number": "096"
+    },
+    {
+      "name": "四海公园",
+      "spot_number": "097"
+    },
+    {
+      "name": "陈郁故居",
+      "spot_number": "098"
+    },
+    {
+      "name": "中心河绿道",
+      "spot_number": "099"
+    },
+    {
+      "name": "南山深圳湾绿道",
+      "spot_number": "100"
+    },
+    {
+      "name": "盐田海滨栈道",
+      "spot_number": "101"
+    },
+    {
+      "name": "盐田中央公园",
+      "spot_number": "102"
+    },
+    {
+      "name": "海山公园",
+      "spot_number": "103"
+    },
+    {
+      "name": "恩上水库",
+      "spot_number": "104"
+    },
+    {
+      "name": "恩上湿地公园",
+      "spot_number": "105"
+    },
+    {
+      "name": "大梅沙海滨公园",
+      "spot_number": "106"
+    },
+    {
+      "name": "小梅沙海滨公园",
+      "spot_number": "107"
+    },
+    {
+      "name": "背仔角",
+      "spot_number": "108"
+    },
+    {
+      "name": "中英街",
+      "spot_number": "109"
+    },
+    {
+      "name": "三洲田森林公园",
+      "spot_number": "110"
+    },
+    {
+      "name": "东部华侨城",
+      "spot_number": "111"
+    },
+    {
+      "name": "灯塔图书馆",
+      "spot_number": "112"
+    },
+    {
+      "name": "盐田海鲜街",
+      "spot_number": "113"
+    },
+    {
+      "name": "北山道",
+      "spot_number": "114"
+    },
+    {
+      "name": "盐田能源生态园",
+      "spot_number": "115"
+    },
+    {
+      "name": "深圳市中英街历史博物馆",
+      "spot_number": "116"
+    },
+    {
+      "name": "恩上古村生态公园",
+      "spot_number": "117"
+    },
+    {
+      "name": "烟墩山国际友好公园",
+      "spot_number": "118"
+    },
+    {
+      "name": "梅沙湾公园",
+      "spot_number": "119"
+    },
+    {
+      "name": "盐田半山绿道（恩上—盐高段）",
+      "spot_number": "120"
+    },
+    {
+      "name": "欢乐港湾",
+      "spot_number": "121"
+    },
+    {
+      "name": "滨海文化公园",
+      "spot_number": "122"
+    },
+    {
+      "name": "西湾红树林公园",
+      "spot_number": "123"
+    },
+    {
+      "name": "宝安公园",
+      "spot_number": "124"
+    },
+    {
+      "name": "凤凰山森林公园",
+      "spot_number": "125"
+    },
+    {
+      "name": "凤凰古村",
+      "spot_number": "126"
+    },
+    {
+      "name": "清平古墟",
+      "spot_number": "127"
+    },
+    {
+      "name": "立新湖公园",
+      "spot_number": "128"
+    },
+    {
+      "name": "海上田园",
+      "spot_number": "129"
+    },
+    {
+      "name": "阳台山森林公园",
+      "spot_number": "130"
+    },
+    {
+      "name": "茅洲河碧道",
+      "spot_number": "131"
+    },
+    {
+      "name": "沙井老街",
+      "spot_number": "132"
+    },
+    {
+      "name": "宝安图书馆",
+      "spot_number": "133"
+    },
+    {
+      "name": "罗田森林公园",
+      "spot_number": "134"
+    },
+    {
+      "name": "西部海岸观光带",
+      "spot_number": "135"
+    },
+    {
+      "name": "深圳（宝安）劳务工博物馆",
+      "spot_number": "136"
+    },
+    {
+      "name": "中共宝安县第一次代表大会纪念馆",
+      "spot_number": "137"
+    },
+    {
+      "name": "深圳市宝安区华夏龙泉青瓷博物馆",
+      "spot_number": "138"
+    },
+    {
+      "name": "深圳市宝安区结缘奇石博物馆",
+      "spot_number": "139"
+    },
+    {
+      "name": "深圳市宝安区锦舟陶瓷博物馆",
+      "spot_number": "140"
+    },
+    {
+      "name": "深圳市宝安区老战士纪念馆",
+      "spot_number": "141"
+    },
+    {
+      "name": "深圳市宝安区沙井蚝文化博物馆",
+      "spot_number": "142"
+    },
+    {
+      "name": "深圳市宝安区一雍紫砂博物馆",
+      "spot_number": "143"
+    },
+    {
+      "name": "深圳市宝安区邹鲁潮汕民俗博物馆",
+      "spot_number": "144"
+    },
+    {
+      "name": "深圳市当代名家文房四宝博物馆",
+      "spot_number": "145"
+    },
+    {
+      "name": "深圳市合正艺术博物馆",
+      "spot_number": "146"
+    },
+    {
+      "name": "深圳市十里红妆民俗博物馆",
+      "spot_number": "147"
+    },
+    {
+      "name": "深圳市宝安区宝弘博物馆",
+      "spot_number": "148"
+    },
+    {
+      "name": "深圳市宝安区世纪琥珀博物馆",
+      "spot_number": "149"
+    },
+    {
+      "name": "深圳市海之洋贝壳博物馆",
+      "spot_number": "150"
+    },
+    {
+      "name": "深圳市宝安区鼎坤陶瓷博物馆",
+      "spot_number": "151"
+    },
+    {
+      "name": "深圳市垃圾处理历史博物馆",
+      "spot_number": "152"
+    },
+    {
+      "name": "深圳市宝安区福永杂技博物馆",
+      "spot_number": "153"
+    },
+    {
+      "name": "观澜美术馆",
+      "spot_number": "154"
+    },
+    {
+      "name": "簕杜鹃谷公园",
+      "spot_number": "155"
+    },
+    {
+      "name": "九围湿地公园（九围生态库）",
+      "spot_number": "156"
+    },
+    {
+      "name": "尖岗山公园",
+      "spot_number": "157"
+    },
+    {
+      "name": "陌上花公园",
+      "spot_number": "158"
+    },
+    {
+      "name": "平峦山公园",
+      "spot_number": "159"
+    },
+    {
+      "name": "铁仔山公园",
+      "spot_number": "160"
+    },
+    {
+      "name": "五指耙公园",
+      "spot_number": "161"
+    },
+    {
+      "name": "福海河公园",
+      "spot_number": "162"
+    },
+    {
+      "name": "定岗湖湿地公园",
+      "spot_number": "163"
+    },
+    {
+      "name": "燕川古村",
+      "spot_number": "164"
+    },
+    {
+      "name": "新二古村",
+      "spot_number": "165"
+    },
+    {
+      "name": "新桥古村",
+      "spot_number": "166"
+    },
+    {
+      "name": "桥头古村",
+      "spot_number": "167"
+    },
+    {
+      "name": "环立新湖绿道",
+      "spot_number": "168"
+    },
+    {
+      "name": "凤凰山绿道",
+      "spot_number": "169"
+    },
+    {
+      "name": "环石岩湖绿道",
+      "spot_number": "170"
+    },
+    {
+      "name": "大芬油画村",
+      "spot_number": "171"
+    },
+    {
+      "name": "甘坑古镇",
+      "spot_number": "172"
+    },
+    {
+      "name": "大万世居",
+      "spot_number": "173"
+    },
+    {
+      "name": "大运公园",
+      "spot_number": "174"
+    },
+    {
+      "name": "龙城公园",
+      "spot_number": "175"
+    },
+    {
+      "name": "大运自然公园",
+      "spot_number": "176"
+    },
+    {
+      "name": "园山风景区",
+      "spot_number": "177"
+    },
+    {
+      "name": "求水山公园",
+      "spot_number": "178"
+    },
+    {
+      "name": "龙岗儿童公园",
+      "spot_number": "179"
+    },
+    {
+      "name": "国际低碳城会展中心",
+      "spot_number": "180"
+    },
+    {
+      "name": "龙岗能源生态园",
+      "spot_number": "181"
+    },
+    {
+      "name": "甘坑都市田园",
+      "spot_number": "182"
+    },
+    {
+      "name": "樟树布公园",
+      "spot_number": "183"
+    },
+    {
+      "name": "深圳市龙岗区客家民俗博物馆",
+      "spot_number": "184"
+    },
+    {
+      "name": "深圳市中医药博物馆",
+      "spot_number": "185"
+    },
+    {
+      "name": "深圳市龙岗区毕昇印刷文化博物馆",
+      "spot_number": "186"
+    },
+    {
+      "name": "深圳市龙岗区怡利翡翠博物馆",
+      "spot_number": "187"
+    },
+    {
+      "name": "深圳市龙岗区龙岭邮票博物馆",
+      "spot_number": "188"
+    },
+    {
+      "name": "深圳市梵亚艺术博物馆",
+      "spot_number": "189"
+    },
+    {
+      "name": "深圳市龙岗区东江潮红色文化博物馆",
+      "spot_number": "190"
+    },
+    {
+      "name": "深圳市龙岗区万国珠宝汇矿物博物馆",
+      "spot_number": "191"
+    },
+    {
+      "name": "深圳市丁全匠作博物馆",
+      "spot_number": "192"
+    },
+    {
+      "name": "深圳市百师园非物质文化遗产博物馆",
+      "spot_number": "193"
+    },
+    {
+      "name": "深圳市隐秀高尔夫博物馆",
+      "spot_number": "194"
+    },
+    {
+      "name": "深圳市金雅福黄金珠宝博物馆",
+      "spot_number": "195"
+    },
+    {
+      "name": "大芬美术馆",
+      "spot_number": "196"
+    },
+    {
+      "name": "太阳山艺术中心",
+      "spot_number": "197"
+    },
+    {
+      "name": "平湖生态园",
+      "spot_number": "198"
+    },
+    {
+      "name": "雪竹径公园",
+      "spot_number": "199"
+    },
+    {
+      "name": "八仙岭公园",
+      "spot_number": "200"
+    },
+    {
+      "name": "凤凰山国家矿山公园",
+      "spot_number": "201"
+    },
+    {
+      "name": "红花岭低碳环境生态园",
+      "spot_number": "202"
+    },
+    {
+      "name": "西湖塘",
+      "spot_number": "203"
+    },
+    {
+      "name": "平湖大围",
+      "spot_number": "204"
+    },
+    {
+      "name": "香元老围",
+      "spot_number": "205"
+    },
+    {
+      "name": "龙岗老墟",
+      "spot_number": "206"
+    },
+    {
+      "name": "茂盛世居",
+      "spot_number": "207"
+    },
+    {
+      "name": "龙城公园绿道",
+      "spot_number": "208"
+    },
+    {
+      "name": "大运绿道",
+      "spot_number": "209"
+    },
+    {
+      "name": "观澜版画村",
+      "spot_number": "210"
+    },
+    {
+      "name": "观澜古墟",
+      "spot_number": "211"
+    },
+    {
+      "name": "观澜河湿地公园",
+      "spot_number": "212"
+    },
+    {
+      "name": "鳌湖艺术村",
+      "spot_number": "213"
+    },
+    {
+      "name": "上围艺术村",
+      "spot_number": "214"
+    },
+    {
+      "name": "大浪时尚小镇",
+      "spot_number": "215"
+    },
+    {
+      "name": "龙华环城绿道",
+      "spot_number": "216"
+    },
+    {
+      "name": "樟坑径郊野径",
+      "spot_number": "217"
+    },
+    {
+      "name": "观澜湖生态运动公社",
+      "spot_number": "218"
+    },
+    {
+      "name": "龙华文化艺术中心",
+      "spot_number": "219"
+    },
+    {
+      "name": "深圳市龙华区白石龙文化名人大营救纪念馆",
+      "spot_number": "220"
+    },
+    {
+      "name": "深圳市龙华区华夏军装博物馆",
+      "spot_number": "221"
+    },
+    {
+      "name": "深圳市龙华区美联红木艺术博物馆",
+      "spot_number": "222"
+    },
+    {
+      "name": "深圳红木家具博物馆",
+      "spot_number": "223"
+    },
+    {
+      "name": "深圳市翰熙古陶瓷博物馆",
+      "spot_number": "224"
+    },
+    {
+      "name": "深圳望野博物馆",
+      "spot_number": "225"
+    },
+    {
+      "name": "深圳市艺之卉百年时尚博物馆",
+      "spot_number": "226"
+    },
+    {
+      "name": "深圳美术馆（新馆）",
+      "spot_number": "227"
+    },
+    {
+      "name": "观澜版画艺术博物馆",
+      "spot_number": "228"
+    },
+    {
+      "name": "艺之卉新锐美术馆",
+      "spot_number": "229"
+    },
+    {
+      "name": "求雨岭城市公园",
+      "spot_number": "230"
+    },
+    {
+      "name": "深圳北站中心公园",
+      "spot_number": "231"
+    },
+    {
+      "name": "白石龙音乐公园",
+      "spot_number": "232"
+    },
+    {
+      "name": "观湖中心公园",
+      "spot_number": "233"
+    },
+    {
+      "name": "大水田古村",
+      "spot_number": "234"
+    },
+    {
+      "name": "俄地吓村",
+      "spot_number": "235"
+    },
+    {
+      "name": "龙华环城绿道（大水坑段）",
+      "spot_number": "236"
+    },
+    {
+      "name": "龙华环城绿道（阳台山段）",
+      "spot_number": "237"
+    },
+    {
+      "name": "龙华茜坑绿道",
+      "spot_number": "238"
+    },
+    {
+      "name": "马峦山郊野公园",
+      "spot_number": "239"
+    },
+    {
+      "name": "聚龙山生态公园",
+      "spot_number": "240"
+    },
+    {
+      "name": "坪山中心公园",
+      "spot_number": "241"
+    },
+    {
+      "name": "坪山河碧道",
+      "spot_number": "242"
+    },
+    {
+      "name": "坪山文化聚落",
+      "spot_number": "243"
+    },
+    {
+      "name": "坪山老街",
+      "spot_number": "244"
+    },
+    {
+      "name": "大山陂主题公园",
+      "spot_number": "245"
+    },
+    {
+      "name": "坪山儿童公园",
+      "spot_number": "246"
+    },
+    {
+      "name": "光祖公园",
+      "spot_number": "247"
+    },
+    {
+      "name": "金龟村",
+      "spot_number": "248"
+    },
+    {
+      "name": "坪山雕塑艺术创意园",
+      "spot_number": "249"
+    },
+    {
+      "name": "深圳市坪山区东江纵队纪念馆",
+      "spot_number": "250"
+    },
+    {
+      "name": "深圳市和畅园博物馆",
+      "spot_number": "251"
+    },
+    {
+      "name": "坪山美术馆",
+      "spot_number": "252"
+    },
+    {
+      "name": "燕子岭生态公园",
+      "spot_number": "253"
+    },
+    {
+      "name": "人工湿地公园",
+      "spot_number": "254"
+    },
+    {
+      "name": "龙田世居",
+      "spot_number": "255"
+    },
+    {
+      "name": "坪山大山陂绿道",
+      "spot_number": "256"
+    },
+    {
+      "name": "深圳科学技术馆",
+      "spot_number": "257"
+    },
+    {
+      "name": "光明科学公园",
+      "spot_number": "258"
+    },
+    {
+      "name": "虹桥公园",
+      "spot_number": "259"
+    },
+    {
+      "name": "大顶岭绿道",
+      "spot_number": "260"
+    },
+    {
+      "name": "光明农场大观园",
+      "spot_number": "261"
+    },
+    {
+      "name": "光明小镇欢乐田园",
+      "spot_number": "262"
+    },
+    {
+      "name": "光明文化艺术中心",
+      "spot_number": "263"
+    },
+    {
+      "name": "楼村湿地公园",
+      "spot_number": "264"
+    },
+    {
+      "name": "左岸科技公园",
+      "spot_number": "265"
+    },
+    {
+      "name": "公明老墟",
+      "spot_number": "266"
+    },
+    {
+      "name": "光明湖碧道",
+      "spot_number": "267"
+    },
+    {
+      "name": "迳口古村",
+      "spot_number": "268"
+    },
+    {
+      "name": "深圳市依波钟表文化博物馆",
+      "spot_number": "269"
+    },
+    {
+      "name": "深圳市光明区惜物博物馆",
+      "spot_number": "270"
+    },
+    {
+      "name": "光明文化艺术中心美术馆",
+      "spot_number": "271"
+    },
+    {
+      "name": "茅洲河滨水公园",
+      "spot_number": "272"
+    },
+    {
+      "name": "明湖城市公园",
+      "spot_number": "273"
+    },
+    {
+      "name": "红花山公园",
+      "spot_number": "274"
+    },
+    {
+      "name": "科学城智慧公园",
+      "spot_number": "275"
+    },
+    {
+      "name": "合水口古村",
+      "spot_number": "276"
+    },
+    {
+      "name": "光明马拉松山湖绿道（一期）",
+      "spot_number": "277"
+    },
+    {
+      "name": "大鹏所城",
+      "spot_number": "278"
+    },
+    {
+      "name": "大鹏半岛国家地质公园",
+      "spot_number": "279"
+    },
+    {
+      "name": "深圳市天文台",
+      "spot_number": "280"
+    },
+    {
+      "name": "较场尾",
+      "spot_number": "281"
+    },
+    {
+      "name": "西涌滨海旅游度假区",
+      "spot_number": "282"
+    },
+    {
+      "name": "东涌海滩",
+      "spot_number": "283"
+    },
+    {
+      "name": "桔钓沙",
+      "spot_number": "284"
+    },
+    {
+      "name": "杨梅坑",
+      "spot_number": "285"
+    },
+    {
+      "name": "鹿嘴山庄海岸",
+      "spot_number": "286"
+    },
+    {
+      "name": "坝光银叶树湿地园",
+      "spot_number": "287"
+    },
+    {
+      "name": "沙鱼涌",
+      "spot_number": "288"
+    },
+    {
+      "name": "官湖村",
+      "spot_number": "289"
+    },
+    {
+      "name": "东山寺",
+      "spot_number": "290"
+    },
+    {
+      "name": "土洋东江纵队司令部旧址",
+      "spot_number": "291"
+    },
+    {
+      "name": "南澳月亮湾",
+      "spot_number": "292"
+    },
+    {
+      "name": "鹤薮古村",
+      "spot_number": "293"
+    },
+    {
+      "name": "玫瑰海岸",
+      "spot_number": "294"
+    },
+    {
+      "name": "金沙湾",
+      "spot_number": "295"
+    },
+    {
+      "name": "七娘山",
+      "spot_number": "296"
+    },
+    {
+      "name": "大鹏滨海绿道",
+      "spot_number": "297"
+    },
+    {
+      "name": "深圳市大鹏新区大鹏古城博物馆",
+      "spot_number": "298"
+    },
+    {
+      "name": "深圳大鹏半岛国家地质公园博物馆",
+      "spot_number": "299"
+    },
+    {
+      "name": "禾塘湿地公园",
+      "spot_number": "300"
+    },
+    {
+      "name": "大鹏蓝海人才公园",
+      "spot_number": "301"
+    },
+    {
+      "name": "白沙湾公园",
+      "spot_number": "302"
+    },
+    {
+      "name": "王母墟",
+      "spot_number": "303"
+    },
+    {
+      "name": "西贡村",
+      "spot_number": "304"
+    },
+    {
+      "name": "高岭古村",
+      "spot_number": "305"
+    },
+    {
+      "name": "鹅公村",
+      "spot_number": "306"
+    },
+    {
+      "name": "南澳墟",
+      "spot_number": "307"
+    },
+    {
+      "name": "海贝湾—畲吓湾绿道",
+      "spot_number": "308"
+    },
+    {
+      "name": "新东绿道",
+      "spot_number": "309"
+    },
+    {
+      "name": "禾塘山水绿道",
+      "spot_number": "310"
+    },
+    {
+      "name": "鲲鹏径",
+      "spot_number": "311"
+    },
+    {
+      "name": "凤凰径",
+      "spot_number": "312"
+    },
+    {
+      "name": "翠微径",
+      "spot_number": "313"
+    },
+    {
+      "name": "阳台山环线",
+      "spot_number": "314"
+    },
+    {
+      "name": "马峦山环线",
+      "spot_number": "315"
+    },
+    {
+      "name": "三水线",
+      "spot_number": "316"
+    },
+    {
+      "name": "大沙河公园",
+      "spot_number": "317"
+    },
+    {
+      "name": "燕晗山郊野公园",
+      "spot_number": "318"
+    },
+    {
+      "name": "西丽生态公园",
+      "spot_number": "319"
+    },
+    {
+      "name": "深圳市水土保持科技示范园",
+      "spot_number": "320"
+    },
+    {
+      "name": "后海河碧道",
+      "spot_number": "321"
+    },
+    {
+      "name": "盐田河碧道",
+      "spot_number": "322"
+    },
+    {
+      "name": "鸳鸯谷碧道",
+      "spot_number": "323"
+    },
+    {
+      "name": "南湾郊野公园",
+      "spot_number": "324"
+    },
+    {
+      "name": "三联郊野公园",
+      "spot_number": "325"
+    },
+    {
+      "name": "龙岗河干流碧道（示范段）",
+      "spot_number": "326"
+    },
+    {
+      "name": "神仙岭水库碧道",
+      "spot_number": "327"
+    },
+    {
+      "name": "甘坑苗坑水库碧道",
+      "spot_number": "328"
+    },
+    {
+      "name": "甘坑水库碧道",
+      "spot_number": "329"
+    },
+    {
+      "name": "大雁山森林公园",
+      "spot_number": "330"
+    }
+  ]
+}

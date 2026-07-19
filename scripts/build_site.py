@@ -90,7 +90,7 @@ def nav(prefix: str, active: str, *, district_slug: str | None = None) -> str:
     """
 
 
-def footer(prefix: str, place_count: int) -> str:
+def footer(prefix: str, place_count: int, updated_at: str) -> str:
     return f"""
     <footer class="site-footer">
       <div class="page-width footer-grid">
@@ -106,7 +106,7 @@ def footer(prefix: str, place_count: int) -> str:
         </div>
       </div>
       <div class="page-width footer-bottom">
-        <span>更新于 2026-07-18</span>
+        <span>更新于 {h(updated_at)}</span>
         <span>开放、票务与交通可能调整，出发前请再次核对官方公告。</span>
       </div>
     </footer>
@@ -127,6 +127,7 @@ def shell(
     json_ld: dict[str, object] | None = None,
     body_class: str = "",
     place_count: int,
+    updated_at: str,
 ) -> str:
     canonical = f"{BASE_URL}{canonical_path}"
     script_tags = "".join(
@@ -162,7 +163,7 @@ def shell(
   <body class="{h(body_class)}">
     {nav(prefix, active, district_slug=district_slug)}
     <main id="main-content">{body}</main>
-    {footer(prefix, place_count)}
+    {footer(prefix, place_count, updated_at)}
     {script_tags}
   </body>
 </html>"""
@@ -187,7 +188,7 @@ def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> 
       data-ticket="{h(spot['ticket_kind'])}" data-indoor="{str(bool(spot['indoor'])).lower()}"
       data-place-id="{h(spot['spot_number'])}">
       <a class="place-card-image" href="{prefix}{h(spot['detail_path'])}">
-        <img src="{prefix}{h(image['path'])}" alt="{h(alt)}" loading="{loading}" decoding="async" width="1200" height="720">
+        <img src="{prefix}{h(image['path'])}" alt="{h(alt)}" loading="{loading}" decoding="async" width="1200" height="540">
         <span class="image-kind {('real-photo' if image['kind'] == 'real_photo' else 'editorial-image')}">{h(image['kind_label'])}</span>
       </a>
       <div class="place-card-body">
@@ -402,10 +403,10 @@ def detail_body(
       <div class="page-width">
         <nav class="breadcrumb" aria-label="面包屑"><a href="../../index.html">首页</a><span>／</span><a href="../../places/">全部景点</a><span>／</span><a href="../../districts/{h(spot['district_slug'])}/">{h(spot['district_primary'])}</a><span>／</span><span aria-current="page">{h(spot['name'])}</span></nav>
         <div class="detail-hero-grid">
-          <div class="detail-image-wrap">
-            <img src="../../{h(image['path'])}" alt="{h(alt)}" width="1200" height="720" fetchpriority="high">
-            <span class="image-kind {('real-photo' if image['kind'] == 'real_photo' else 'editorial-image')}">{h(image['kind_label'])}</span>
-          </div>
+          <figure class="detail-image-wrap">
+            <img src="../../{h(image['path'])}" alt="{h(alt)}" width="1200" height="540" fetchpriority="high">
+            <figcaption class="image-kind {('real-photo' if image['kind'] == 'real_photo' else 'editorial-image')}">{h(image['kind_label'])}</figcaption>
+          </figure>
           <div class="detail-title">
             <div class="card-tags"><span>{h(spot['district_primary'])}</span><span>{h(spot['profile_label'])}</span><span class="{ticket_class(str(spot['ticket_kind']))}">{h(str(spot['ticket']).split('｜')[0])}</span></div>
             <p class="spot-number">SHENZHEN GUIDE · {h(spot['spot_number'])}</p>
@@ -476,6 +477,7 @@ def build() -> None:
             body=index_body(data),
             body_class="home-page",
             place_count=place_count,
+            updated_at=str(data["meta"]["updated_at"]),
         ),
     )
     write(
@@ -490,6 +492,7 @@ def build() -> None:
             scripts=("catalog.js",),
             body_class="catalog-page",
             place_count=place_count,
+            updated_at=str(data["meta"]["updated_at"]),
         ),
     )
     write(
@@ -503,6 +506,7 @@ def build() -> None:
             body=downloads_body(),
             body_class="downloads-page",
             place_count=place_count,
+            updated_at=str(data["meta"]["updated_at"]),
         ),
     )
 
@@ -520,6 +524,7 @@ def build() -> None:
                 district_slug=str(district["slug"]),
                 body_class="district-page",
                 place_count=place_count,
+                updated_at=str(data["meta"]["updated_at"]),
             ),
         )
 
@@ -556,6 +561,7 @@ def build() -> None:
                 json_ld=json_ld,
                 body_class="detail-page",
                 place_count=place_count,
+                updated_at=str(data["meta"]["updated_at"]),
             ),
         )
 
