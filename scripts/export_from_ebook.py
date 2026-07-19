@@ -102,6 +102,20 @@ def write_stable_place_ids(registry_path: Path, place_ids: dict[str, str]) -> No
     )
 
 
+def allocate_stable_place_ids(
+    existing_place_ids: dict[str, str],
+    source_names: list[str],
+) -> dict[str, str]:
+    """Append IDs for new names while preserving every registered public ID."""
+    place_ids = dict(existing_place_ids)
+    next_id = max(int(spot_number) for spot_number in place_ids.values()) + 1
+    for name in source_names:
+        if name not in place_ids:
+            place_ids[name] = f"{next_id:03d}"
+            next_id += 1
+    return place_ids
+
+
 def export(
     source_dir: Path,
     registry_path: Path = PLACE_ID_REGISTRY,
@@ -130,12 +144,10 @@ def export(
         sample = ", ".join(sorted(missing_names)[:5])
         raise ValueError(f"source removed registered places without an ID migration: {sample}")
 
-    next_id = max(int(spot_number) for spot_number in stable_ids.values()) + 1
-    for spot in source_places:
-        name = spot["name"]
-        if name not in stable_ids:
-            stable_ids[name] = f"{next_id:03d}"
-            next_id += 1
+    stable_ids = allocate_stable_place_ids(
+        stable_ids,
+        [spot["name"] for spot in source_places],
+    )
 
     exported_places: list[dict[str, object]] = []
     image_dir = ROOT / "assets/places"

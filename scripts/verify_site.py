@@ -13,10 +13,13 @@ from urllib.parse import unquote, urlsplit
 
 
 ROOT = Path(__file__).resolve().parents[1]
+PUBLIC_BASE_URL = "https://laypen-netizen.github.io/shenzhen-outdoor-guide-ebook/"
 PLACE_ID_REGISTRY = ROOT / "data/place_ids.json"
+RESPONSIVE_PLACE_WIDTHS = (720, 960)
+REQUIRED_OG_PROPERTIES = ("og:title", "og:description", "og:url", "og:image")
 EXPECTED_HASHES = {
-    "downloads/shenzhen-outdoor-guide.pdf": "ba889c0f6ffeb98ccd8123310bf972f5a48cc50279a9d390e72f806fbf493ee1",
-    "downloads/shenzhen-outdoor-guide.docx": "2ece4f86c50a738252193881ec0ab15da5d797f36066349da6126fa251ccf087",
+    "downloads/shenzhen-outdoor-guide.pdf": "fb858ceaa1752816ee101acae263c7ec5660649f502243436c76c6b7aa5b5c18",
+    "downloads/shenzhen-outdoor-guide.docx": "6b47dfae0924ddfb6bb76add24686cc492377500c8a81220a1bcae990b5ec2b4",
 }
 DETAIL_LABELS = (
     "核心看点",
@@ -39,6 +42,11 @@ class PageParser(HTMLParser):
         self.title_count = 0
         self.h1_count = 0
         self.viewport_count = 0
+        self.descriptions: list[str] = []
+        self.canonical_urls: list[str] = []
+        self.og_values: dict[str, list[str]] = {
+            property_name: [] for property_name in REQUIRED_OG_PROPERTIES
+        }
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
@@ -48,12 +56,26 @@ class PageParser(HTMLParser):
             self.title_count += 1
         elif tag == "h1":
             self.h1_count += 1
-        elif tag == "meta" and values.get("name") == "viewport":
-            self.viewport_count += 1
+        elif tag == "meta":
+            if values.get("name") == "viewport":
+                self.viewport_count += 1
+            elif values.get("name") == "description":
+                self.descriptions.append(values.get("content") or "")
+            property_name = values.get("property") or ""
+            if property_name in self.og_values:
+                self.og_values[property_name].append(values.get("content") or "")
+        elif tag == "link" and "canonical" in (values.get("rel") or "").split():
+            self.canonical_urls.append(values.get("href") or "")
         for key in ("href", "src"):
             value = values.get(key)
             if value:
                 self.assets.add(value)
+        srcset = values.get("srcset")
+        if srcset:
+            for candidate in srcset.split(","):
+                value = candidate.strip().split(maxsplit=1)[0]
+                if value:
+                    self.assets.add(value)
 
 
 def sha256(path: Path) -> str:
@@ -85,6 +107,39 @@ def resolve_local_asset(page: Path, value: str) -> Path | None:
     return target
 
 
+def resolve_published_asset(value: str) -> Path | None:
+    if not value.startswith(PUBLIC_BASE_URL):
+        return None
+    relative = unquote(urlsplit(value).path.removeprefix(urlsplit(PUBLIC_BASE_URL).path))
+    if not relative:
+        return None
+    target = (ROOT / relative).resolve()
+    if ROOT not in target.parents and target != ROOT:
+        raise ValueError(f"published asset escapes site root: {value}")
+    return target
+
+
+def expected_canonical_url(relative: Path) -> str:
+    if relative == Path("index.html"):
+        return PUBLIC_BASE_URL
+    if relative.name == "index.html":
+        return f"{PUBLIC_BASE_URL}{relative.parent.as_posix()}/"
+    return f"{PUBLIC_BASE_URL}{relative.as_posix()}"
+
+
+def responsive_place_image_path(path: str, width: int) -> Path:
+    relative = Path(path)
+    return ROOT / relative.parent / str(width) / relative.name
+
+
+def published_place_images() -> set[Path]:
+    return {
+        path
+        for path in (ROOT / "assets/places").glob("*.jpg")
+        if not path.name.endswith("_original.jpg")
+    }
+
+
 def verify_page(path: Path, errors: list[str]) -> None:
     markup = path.read_text(encoding="utf-8")
     parser = PageParser()
@@ -101,6 +156,26 @@ def verify_page(path: Path, errors: list[str]) -> None:
         errors.append(f"{relative}: expected one viewport meta")
     if "file://" in markup:
         errors.append(f"{relative}: contains file URL")
+    if path.name != "404.html":
+        if len(parser.descriptions) != 1 or not parser.descriptions[0].strip():
+            errors.append(f"{relative}: expected one non-empty meta description")
+        canonical = expected_canonical_url(relative)
+        if parser.canonical_urls != [canonical]:
+            errors.append(f"{relative}: canonical URL missing or incorrect")
+        for property_name in REQUIRED_OG_PROPERTIES:
+            values = parser.og_values[property_name]
+            if len(values) != 1 or not values[0].strip():
+                errors.append(f"{relative}: expected one non-empty {property_name}")
+        if parser.og_values["og:url"] != [canonical]:
+            errors.append(f"{relative}: og:url missing or incorrect")
+        for value in parser.og_values["og:image"]:
+            try:
+                target = resolve_published_asset(value)
+            except ValueError as exc:
+                errors.append(f"{relative}: {exc}")
+                continue
+            if target is not None and not target.exists():
+                errors.append(f"{relative}: missing published og:image {value}")
 
     for value in parser.assets:
         try:
@@ -164,44 +239,61 @@ def main() -> None:
             errors.append(f"homepage missing Web/H5 promise: {phrase}")
 
     detail_paths: list[Path] = []
+    existing_detail_pages: list[Path] = []
     image_paths: set[Path] = set()
+    existing_image_paths: set[Path] = set()
     for spot in places:
         detail = ROOT / spot["detail_path"] / "index.html"
         detail_paths.append(detail)
-        if not detail.exists():
+        if not detail.is_file():
             errors.append(f'missing detail page: {spot["name"]}')
-            continue
-        markup = detail.read_text(encoding="utf-8")
-        if html.escape(spot["name"]) not in markup:
-            errors.append(f'{spot["name"]}: name missing from detail')
-        if html.escape(spot["intro"]) not in markup:
-            errors.append(f'{spot["name"]}: intro missing from detail')
-        for label in DETAIL_LABELS:
-            if label not in markup:
-                errors.append(f'{spot["name"]}: missing detail label {label}')
-        if 'width="1200" height="540"' not in markup:
-            errors.append(f'{spot["name"]}: detail image dimensions do not match exported card')
-        if spot["image"]["kind_label"] not in markup:
-            errors.append(f'{spot["name"]}: missing image-kind disclosure')
-        if spot["image"]["kind"] == "real_photo":
-            for field in ("description", "detail_url", "artist", "license", "license_url"):
-                value = spot["image"].get(field, "")
-                if not value:
-                    errors.append(f'{spot["name"]}: real photo missing {field}')
-                elif html.escape(value, quote=True) not in markup:
-                    errors.append(f'{spot["name"]}: real photo attribution missing from detail ({field})')
-        elif not spot["image"].get("description"):
-            errors.append(f'{spot["name"]}: editorial image missing description')
+        else:
+            existing_detail_pages.append(detail)
+            markup = detail.read_text(encoding="utf-8")
+            if html.escape(spot["name"]) not in markup:
+                errors.append(f'{spot["name"]}: name missing from detail')
+            if html.escape(spot["intro"]) not in markup:
+                errors.append(f'{spot["name"]}: intro missing from detail')
+            for label in DETAIL_LABELS:
+                if label not in markup:
+                    errors.append(f'{spot["name"]}: missing detail label {label}')
+            if 'width="1200" height="540"' not in markup:
+                errors.append(f'{spot["name"]}: detail image dimensions do not match exported card')
+            if 'srcset="' not in markup or "/720/" not in markup or "/960/" not in markup:
+                errors.append(f'{spot["name"]}: detail image is missing responsive srcset variants')
+            if spot["image"]["kind_label"] not in markup:
+                errors.append(f'{spot["name"]}: missing image-kind disclosure')
+            if spot["image"]["kind"] == "real_photo":
+                for field in ("description", "detail_url", "artist", "license", "license_url"):
+                    value = spot["image"].get(field, "")
+                    if not value:
+                        errors.append(f'{spot["name"]}: real photo missing {field}')
+                    elif html.escape(value, quote=True) not in markup:
+                        errors.append(f'{spot["name"]}: real photo attribution missing from detail ({field})')
+            elif not spot["image"].get("description"):
+                errors.append(f'{spot["name"]}: editorial image missing description')
         image_path = ROOT / spot["image"]["path"]
         image_paths.add(image_path)
-        if not image_path.exists():
+        if not image_path.is_file():
             errors.append(f'{spot["name"]}: missing image')
+        else:
+            existing_image_paths.add(image_path)
+        for width in RESPONSIVE_PLACE_WIDTHS:
+            responsive = responsive_place_image_path(str(spot["image"]["path"]), width)
+            if not responsive.exists():
+                errors.append(f'{spot["name"]}: missing responsive image {responsive.relative_to(ROOT)}')
+            elif image_path.is_file() and responsive.stat().st_size >= image_path.stat().st_size:
+                errors.append(
+                    f'{spot["name"]}: responsive image {responsive.relative_to(ROOT)} is not smaller than source'
+                )
 
-    if len(detail_paths) != expected_places:
-        errors.append(f"detail page count invalid: {len(detail_paths)}")
+    if len(existing_detail_pages) != expected_places:
+        errors.append(f"detail page count invalid: {len(existing_detail_pages)}")
     if len(image_paths) != expected_places:
         errors.append(f"image mapping count invalid: {len(image_paths)}")
-    actual_images = set((ROOT / "assets/places").glob("*.jpg"))
+    if len(existing_image_paths) != expected_places:
+        errors.append(f"place image count invalid: {len(existing_image_paths)}")
+    actual_images = published_place_images()
     if actual_images != image_paths:
         errors.append("assets/places does not exactly match place image mapping")
 
@@ -234,6 +326,8 @@ def main() -> None:
             errors.append(
                 f"{page.relative_to(ROOT)}: place-card images do not match the exported 20:9 card ratio"
             )
+        if card_image_count and markup.count('srcset="') < card_image_count:
+            errors.append(f"{page.relative_to(ROOT)}: place-card images are missing responsive srcset")
 
     for relative, expected in EXPECTED_HASHES.items():
         path = ROOT / relative
@@ -251,8 +345,8 @@ def main() -> None:
                 "status": "ok",
                 "places": len(places),
                 "districts": len(districts),
-                "detail_pages": len(detail_paths),
-                "place_images": len(image_paths),
+                "detail_pages": len(existing_detail_pages),
+                "place_images": len(existing_image_paths),
                 "html_pages_checked": len(unique_html_pages),
                 "catalog_cards": len(catalog_ids),
                 "sitemap_urls": sitemap_count,

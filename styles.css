@@ -377,12 +377,13 @@ button {
 }
 
 .hero-visual {
+  overflow: hidden;
   padding: 16px;
   color: var(--ink);
   background: var(--white);
-  border-radius: 3px 24px 24px 3px;
+  border-radius: 24px;
   box-shadow: var(--shadow);
-  transform: rotate(1.3deg);
+  transform: none;
 }
 
 .hero-visual > img {
@@ -390,7 +391,7 @@ button {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
-  border-radius: 2px 15px 4px 4px;
+  border-radius: 14px;
 }
 
 .hero-visual-label {
@@ -486,6 +487,23 @@ button {
   color: var(--green);
   font-weight: 800;
   text-underline-offset: 5px;
+}
+
+.mobile-scroll-hint {
+  display: none;
+}
+
+@supports (content-visibility: auto) {
+  .home-page main > .section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 640px;
+  }
+
+  .catalog-grid > .place-card,
+  .related-grid > .place-card {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 390px;
+  }
 }
 
 .scene-grid {
@@ -904,7 +922,7 @@ button {
 
 .check-label {
   display: flex;
-  min-height: 42px;
+  min-height: 44px;
   align-items: center;
   gap: 9px;
   margin-top: 10px;
@@ -1504,7 +1522,7 @@ button {
 
   .mobile-filter-button {
     display: inline-flex;
-    min-height: 42px;
+    min-height: 44px;
     align-items: center;
     padding: 0 16px;
     color: var(--green);
@@ -1629,7 +1647,7 @@ button {
   }
 
   .section {
-    padding-block: 72px;
+    padding-block: 52px;
   }
 
   .section-heading {
@@ -1649,19 +1667,47 @@ button {
     gap: 16px;
   }
 
-  .scene-grid,
-  .district-grid,
   .place-grid,
-  .featured-grid,
   .catalog-grid,
   .related-grid,
   .download-grid {
     grid-template-columns: 1fr;
   }
 
+  .mobile-scroll-hint {
+    display: block;
+    margin: -16px 0 14px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  .mobile-scroll-row {
+    display: grid;
+    width: calc(100% + 14px);
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    gap: 12px;
+    margin-right: -14px;
+    padding: 0 14px 12px 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-padding-inline: 0 14px;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mobile-scroll-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-scroll-row > * {
+    scroll-snap-align: start;
+  }
+
   .scene-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-auto-columns: minmax(154px, 46%);
   }
 
   .scene-card {
@@ -1678,6 +1724,14 @@ button {
     padding: 25px;
   }
 
+  .district-grid {
+    grid-auto-columns: minmax(280px, 82%);
+  }
+
+  .featured-grid {
+    grid-auto-columns: minmax(300px, 88%);
+  }
+
   .place-card-body {
     min-height: 245px;
   }
@@ -1691,20 +1745,13 @@ button {
     font-size: 12px;
   }
 
-  .decision-list {
-    grid-template-columns: 1fr;
+  .decision-list article {
+    min-height: 168px;
+    padding: 18px;
   }
 
-  .decision-list article,
-  .decision-list article:nth-child(-n + 2),
-  .decision-list article:nth-child(odd) {
-    min-height: auto;
-    border-top: 1px solid var(--line-light);
-    border-left: 0;
-  }
-
-  .decision-list article:first-child {
-    border-top: 0;
+  .decision-list h3 {
+    margin-top: 22px;
   }
 
   .compact-hero .page-width,

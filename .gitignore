@@ -1,3 +1,9 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Local-only audit inputs and browser evidence; never publish with GitHub Pages.
+sources/
+.verification/
+assets/places/*_original.jpg
+assets/places/**/*_original.jpg

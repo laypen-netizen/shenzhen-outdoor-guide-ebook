@@ -7,7 +7,7 @@
     "district_count": 10,
     "museum_count": 68,
     "art_count": 20,
-    "real_photo_count": 60
+    "real_photo_count": 69
   },
   "districts": [
     {
@@ -546,13 +546,13 @@
       "detail_path": "places/011/",
       "image": {
         "path": "assets/places/011.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "华强北步行街主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "华强北步行街实景：从高处看电子商业街两侧楼宇、绿化中轴与步行人流",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3AHuaqiangbei_walking_street.jpg",
+        "artist": "Mx. Granger",
+        "license": "CC0 1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -669,13 +669,13 @@
       "detail_path": "places/014/",
       "image": {
         "path": "assets/places/014.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳市科学馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳市科学馆实景：馆内中庭的多层开放空间与大型机械结构展项",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3ASZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E7%A6%8F%E7%94%B0_Futian_%E4%B8%8A%E6%AD%A5%E8%B7%AF_Shangbu_Road_%E6%B7%B1%E5%9C%B3%E7%A7%91%E5%AD%B8%E9%A4%A8_Shenzhen_Science_Museum_March_2024_R12S_535.jpg",
+        "artist": "Himleion Waong Ning",
+        "license": "CC0 1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -751,13 +751,13 @@
       "detail_path": "places/016/",
       "image": {
         "path": "assets/places/016.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳博物馆古代艺术馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳博物馆古代艺术馆实景：印章专题展柜中的古代印章与说明牌",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3ASZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E7%A6%8F%E7%94%B0_Futian_%E6%B7%B1%E5%8D%97%E4%B8%AD%E5%BF%83%E8%B7%AF_Shennan_Middle_Road_%E6%B7%B1%E5%9C%B3%E5%8F%A4%E4%BB%A3%E8%97%9D%E8%A1%93%E5%8D%9A%E7%89%A9%E9%A4%A8_Shenzhen_Museum_Ancient_Art_Museum_2025_%E5%8D%B0%E7%AB%A0%E5%B1%95_Exhibition_of_Mr_Shang_Chengzuo%27s_Chinese_Seal_Art_October_2025_N13P_303.jpg",
+        "artist": "LMSHO kadmsid CAERM",
+        "license": "CC0 1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -792,13 +792,13 @@
       "detail_path": "places/017/",
       "image": {
         "path": "assets/places/017.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳博物馆历史民俗馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳博物馆历史民俗馆实景：民俗展厅内成组陈列的传统人物画与展签",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3ASZ_%E6%B7%B1%E5%9C%B3%E5%8D%9A%E7%89%A9%E9%A4%A8_Shenzhen_Museum_%E6%B7%B1%E5%9C%B3%E6%B0%91%E4%BF%97%E5%B1%95%E5%BB%B3_Folk_Cuture_Exhibition_Hall_December_2023_R12S_129.jpg",
+        "artist": "Yuenwingtsui O Chee",
+        "license": "CC0 1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -1243,13 +1243,13 @@
       "detail_path": "places/028/",
       "image": {
         "path": "assets/places/028.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳市当代艺术与城市规划馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳市当代艺术与城市规划馆实景：折面建筑正立面与福田中心区楼群",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3AMOCAUP%2C_Futian%2C_Shenzhen_-_20260702_-_Front.jpg",
+        "artist": "Pathfinbird",
+        "license": "CC BY 4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/"
       }
     },
     {
@@ -3691,13 +3691,13 @@
       "detail_path": "places/088/",
       "image": {
         "path": "assets/places/088.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳中国钢结构博物馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳中国钢结构博物馆实景：球形入口与覆绿建筑外观",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E9%92%A2%E7%BB%93%E6%9E%84%E5%8D%9A%E7%89%A9%E9%A6%86.jpg",
+        "artist": "NAN LIU",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0/"
       }
     },
     {
@@ -3773,13 +3773,13 @@
       "detail_path": "places/090/",
       "image": {
         "path": "assets/places/090.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "何香凝美术馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "何香凝美术馆实景：白色馆舍、玻璃入口与前庭绿化",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3AHe_Xiangning_Art_Museum1.jpg",
+        "artist": "Huangdan2060",
+        "license": "CC0 1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -3855,13 +3855,13 @@
       "detail_path": "places/092/",
       "image": {
         "path": "assets/places/092.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "雅昌艺术中心主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "雅昌艺术中心实景：蓝色曲面建筑外观与街道入口",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E9%9B%85%E6%98%8C%E8%89%BA%E6%9C%AF%E4%B8%AD%E5%BF%83.jpg",
+        "artist": "NAN LIU",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
       }
     },
     {
@@ -9884,13 +9884,13 @@
       "detail_path": "places/227/",
       "image": {
         "path": "assets/places/227.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳美术馆（新馆）主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳美术馆（新馆）实景：龙华馆舍入口、遮阳构件与展览标识",
+        "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E6%B7%B1%E5%9C%B3%E5%B8%82%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%BE%8E%E6%9C%AF%E9%A6%86%E9%BE%99%E5%8D%8E.jpg",
+        "artist": "Liu Nan",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0/"
       }
     },
     {
@@ -10230,11 +10230,11 @@
         "湿地花园与云隐之森"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "首次游览龙华环城绿道（大水坑段）不求走全，先完成星空夜光步道这一项观察，再根据同行者体力选择湿地花园与云隐之森，并保留原路退出方案。",
+      "first_visit": "从桔美路一侧进入，先看星空夜光步道，再按体力续走湿地花园与云隐之森；到预定折返点即原路返回，不越过库区护栏。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
       "transport": "公交M226到大水坑社区站，或导航大水坑路65号一带入口；库区护栏外不是游线。",
-      "parking": "导航至龙华环城绿道（大水坑段）官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "parking": "自驾只使用大水坑社区周边正规停车场，停妥后步行到桔美路一侧入口；入口、村道和消防通道不排队候位。",
+      "season": "10月至次年4月适合完整走段；夏季优先清晨或傍晚，夜光路段也须在21:30前留足离场时间，雷雨和湿地积水时缩短路线。",
       "status": "具名公共慢行线路｜按官方已开放段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://cgj.sz.gov.cn/xsmh/gysz/szld/content/post_10700398.html",
@@ -10270,11 +10270,11 @@
         "阳台山18个景观节点"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "首次游览龙华环城绿道（阳台山段）不求走全，先完成赖屋山与冷水坑水库这一项观察，再根据同行者体力选择阳台山18个景观节点，并保留原路退出方案。",
+      "first_visit": "初访从胜利大营救广场、冷水坑水库或绿谷公园三处中只选一个入口，先完成赖屋山—冷水坑水库附近的短段，再按原计划退出。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "从胜利大营救广场、冷水坑水库或绿谷公园一侧分段进入；不建议无补给一次走完全程。",
-      "parking": "导航至龙华环城绿道（阳台山段）官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "从胜利大营救广场、冷水坑水库或绿谷公园一侧分段进入；先确定同一入口往返或终点接驳，不把27.9公里当作普通公园环线。",
+      "parking": "车辆只停所选分段入口附近的正规停车场；跨段前先解决终点接驳，水库管理道路、村道和消防通道不停车。",
+      "season": "10月至次年4月适合山地长线；4—9月湿热、雷雨集中，暴雨或地质灾害预警时不进入水库边坡和林下陡段。",
       "status": "具名公共慢行线路｜按官方已开放段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://cgj.sz.gov.cn/xsmh/gysz/szld/content/post_10701129.html",
@@ -10310,11 +10310,11 @@
         "郊野荔林路段"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "首次游览龙华茜坑绿道不求走全，先完成茜坑水库湖景这一项观察，再根据同行者体力选择郊野荔林路段，并保留原路退出方案。",
+      "first_visit": "从茜坑老村一侧进入，先沿茜坑水库开放路段看湖面，再到郊野荔林折返；七公里线路不必一次走完。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公交M288或627到茜坑片区后按老村侧入口进入；返程前确认末班车。",
-      "parking": "导航至龙华茜坑绿道官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "公交M288或627到茜坑片区后按老村侧入口进入；出发前确认返程站点和末班车。",
+      "parking": "官方资料未给出稳定专用泊位数量；自驾使用茜坑老村外围正规停车场后步行进入，不驶入水库管理道路或窄村道。",
+      "season": "10月至次年4月适合水库与果林段慢行；夏季林下仍湿热多蚊，雷雨或强降雨后避开临水边坡和泥泞支路。",
       "status": "具名公共慢行线路｜按官方已开放段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://cgj.sz.gov.cn/xsmh/szlh/jpld/content/post_2053219.html",
@@ -11044,11 +11044,11 @@
         "荔林果园路段"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "第一次到坪山大山陂绿道先把大山陂水库湖景设为主目标，再视天气和现场边界决定是否前往荔林果园路段；返程节点应在出发前确定。",
+      "first_visit": "从坪山体育馆一侧进入，先走到大山陂水库湖景段，再视体力续接荔林果园；到预定时间即沿原路返回停车或公交节点。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公交到坪山体育馆或坪山比亚迪站一带进入；自驾可先核对坪山体育馆停车场。",
-      "parking": "导航至坪山大山陂绿道官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "公交到坪山体育馆或坪山比亚迪站一带进入；按大运场馆八号路或江岭社区竹园路口选择起点，避免走到机动车道。",
+      "parking": "自驾优先核对坪山体育馆停车场当天开放和余位，停妥后步行进入；水库管理口、绿道口和社区窄路不临停。",
+      "season": "10月至次年4月适合湖库与果林段慢行；夏季早晚出发并备水，暴雨后水库边坡、果林土路和低洼段可能湿滑。",
       "status": "具名公共慢行线路｜按官方已开放段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://cgj.sz.gov.cn/xsmh/szlh/jpld/content/post_2053158.html",
@@ -13042,11 +13042,11 @@
         "传统滨海民居"
       ],
       "fit": "适合建筑、地方史和社区观察者；参观时须尊重居民、宗教礼仪与生产秩序。",
-      "first_visit": "第一次到西贡村先把西贡村旧巷设为主目标，再视天气和现场边界决定是否前往传统滨海民居；返程节点应在出发前确定。",
+      "first_visit": "从村口公开道路进入，先沿西贡村旧巷观察街巷尺度，再在不打扰居民的前提下看传统滨海民居外观；内部是否开放以现场为准。",
       "ticket": "免费｜公共街巷与外围开放；室内建筑以现场边界为准",
-      "transport": "公共交通先到南澳街道西贡片区，再以西贡村公开参观入口为终点；多入口地点须按计划游线选择入口，并预先锁定返程站点。",
-      "parking": "车辆停在西贡村外围正规公共停车场后步行进入；不驶入窄巷，不占居民门口、作业区或消防通道。",
-      "season": "10 月至次年 4 月步行较舒适；夏季避开正午，雨天留意石板、台阶和老建筑周边湿滑。",
+      "transport": "公共交通先到南澳街道西贡片区，再以村口公开道路为终点；末段按当天道路和社区提示步行，不进入封闭院落。",
+      "parking": "车辆停在西贡片区外围正规泊位后步行入村；不驶入旧巷，不占居民门口、渔业作业位或消防通道。",
+      "season": "10月至次年4月适合村巷与滨海步行；夏季避开正午，台风、暴雨或沿海大风预警时取消，不在湿滑石阶和老墙边久留。",
       "status": "公共街巷与外围可访｜祠堂、围屋和民居内部开放边界待核",
       "source_label": "深圳市第一批历史风貌区名录及官方文保资料",
       "source_url": "https://www.sz.gov.cn/zfgb/2020/gb1141/content/post_6874861.html",
@@ -13162,11 +13162,11 @@
         "渔港商贸建筑"
       ],
       "fit": "适合建筑、地方史和社区观察者；参观时须尊重居民、宗教礼仪与生产秩序。",
-      "first_visit": "先从南澳墟公开入口确认路线，用南澳墟老街建立方向感；只有在时间、天气都允许时才追加渔港商贸建筑。",
+      "first_visit": "先沿公开的老墟街道看商铺与传统建筑外观，再到渔港外围辨认商贸关系；作业码头、民居和未开放建筑都不进入。",
       "ticket": "免费｜公共街巷与外围开放；室内建筑以现场边界为准",
-      "transport": "公共交通先到南澳街道墟镇片区，再以南澳墟公开参观入口为终点；多入口地点须按计划游线选择入口，并预先锁定返程站点。",
-      "parking": "车辆停在南澳墟外围正规公共停车场后步行进入；不驶入窄巷，不占居民门口、作业区或消防通道。",
-      "season": "10 月至次年 4 月步行较舒适；夏季避开正午，雨天留意石板、台阶和老建筑周边湿滑。",
+      "transport": "公交到南澳街道中心后，从公开老街步行进入；渔港作业区与居民院落不是参观通道，按现场边界停留。",
+      "parking": "自驾使用南澳墟镇正规公共停车场后步行，旺季预留拥堵时间；不在老街、码头作业道路或居民门前临停。",
+      "season": "10月至次年4月适合老街和渔港外围步行；夏季避开正午，台风、暴雨或强风期间不靠近码头和湿滑海堤。",
       "status": "公共街巷与外围可访｜祠堂、围屋和民居内部开放边界待核",
       "source_label": "深圳市第一批历史风貌区名录及官方文保资料",
       "source_url": "https://www.sz.gov.cn/zfgb/2020/gb1141/content/post_6874861.html",
@@ -13282,11 +13282,11 @@
         "管委会后山生态节点"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "先从禾塘山水绿道公开入口确认路线，用亚公岭林下路段建立方向感；只有在时间、天气都允许时才追加管委会后山生态节点。",
+      "first_visit": "从禾塘山水公园进入，先走管委会后山生态节点，再按体力续接亚公岭林下路段；三公里线路可原路折返，不必穿到工业区。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公交到大鹏新区管委会站后步行进入；附近停车不便，优先公共交通。",
-      "parking": "导航至禾塘山水绿道官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "公交到大鹏新区管委会站后步行进入禾塘山水公园；绿道西接金岭路后山、东到奔康工业区，按返程方向选择入口。",
+      "parking": "官方明确提示附近停车不便；自驾只按禾塘山水公园现场正规泊位停放，满位改乘公交，不在金岭路后山入口候位。",
+      "season": "10月至次年4月适合完整慢行；夏季林下仍湿热，雷雨或强降雨后亚公岭坡段可能湿滑，并须在20:00前留足离场时间。",
       "status": "具名公共慢行线路｜按官方已开放段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://cgj.sz.gov.cn/xsmh/gysz/szld/content/post_10701242.html",
@@ -13362,11 +13362,11 @@
         "西北部森林公园串联"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "到达凤凰径后先确认六段山林远足系统是否可进入，再将西北部森林公园串联作为可取消的第二站；遇拥挤、暴晒或降雨就提前折返。",
+      "first_visit": "第一次只从六段中选择一段，在官方导览保存入口、出口、厕所与下撤点；走到计划终点即离线，不临时跨入下一段。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公共交通先到凤凰山至马鞍山的跨区山林长线片区，再以凤凰径公开参观入口为终点；多入口地点须按计划游线选择入口，并预先锁定返程站点。",
-      "parking": "导航至凤凰径官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "先在深圳远足径官方导览中从六段里选定一段，分别核对入口、出口、公交和当天实况；不直接导航“凤凰径”总名。",
+      "parking": "跨区长线不以自驾闭环为默认方案；车辆只停所选分段入口正规停车场，并先落实终点公共交通或接驳。",
+      "season": "10月至次年4月较适合分段远足；夏季高温雷雨集中，森林防火、暴雨或地质灾害预警时取消山地段。",
       "status": "跨区远足主线｜仅按官方开放分段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://www.sz.gov.cn/szzt2010/gysz/gydt/content/post_11019265.html",
@@ -13402,11 +13402,11 @@
         "坪山文化设施接口"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "首次游览翠微径不求走全，先完成马峦山与清林径山水这一项观察，再根据同行者体力选择坪山文化设施接口，并保留原路退出方案。",
+      "first_visit": "第一次从四段中选一段：想看山林选马峦山一侧，想降低强度可选坪山文化设施附近城市段；以官方导览的下撤点结束。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公共交通先到坪山与龙岗山水文化节点之间片区，再以翠微径公开参观入口为终点；多入口地点须按计划游线选择入口，并预先锁定返程站点。",
-      "parking": "导航至翠微径官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "先在深圳远足径官方导览的四段中选定一段，再核对坪山或龙岗一侧的入口、出口和当天交通；不以线路总名作为导航终点。",
+      "parking": "需要自驾时只停所选分段入口的正规停车场，并提前安排异地出口接驳；水库管理路、村道和消防通道不停车。",
+      "season": "10月至次年4月适合山水与城区混合段；夏季高温雷雨明显，暴雨或地质灾害预警时不进马峦山、库岸和自然土路。",
       "status": "跨区远足主线｜仅按官方开放分段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://www.sz.gov.cn/szzt2010/gysz/gydt/content/post_11019265.html",
@@ -13442,11 +13442,11 @@
         "飞龙乘云台与奇石景观"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "首次游览阳台山环线不求走全，先完成阳台叠翠主脊这一项观察，再根据同行者体力选择飞龙乘云台与奇石景观，并保留原路退出方案。",
+      "first_visit": "从胜利大营救广场识别环线方向后，只完成官方导览中的一个短段；阳台叠翠主脊与奇石节点二选一，不把38.5公里当日常公园环线。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公共交通先到胜利大营救广场起终点，跨龙华、宝安和南山片区，再以阳台山环线公开参观入口为终点；多入口地点须按计划游线选择入口，并预先锁定返程站点。",
-      "parking": "导航至阳台山环线官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "以胜利大营救广场为总路线识别点，但初访应在深圳远足径官方导览中选短段并核对出入口，不按38.5公里整环临时起走。",
+      "parking": "车辆只停所选入口正规停车场；若不是同点往返，先落实终点公交或接驳，不在水库路和消防通道留车。",
+      "season": "10月至次年4月较适合山脊段；高温、雷雨、大风、森林防火或地质灾害预警期间取消，雨后不走裸岩陡坡。",
       "status": "跨区挑战线路｜按官方开放分段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://www.sz.gov.cn/szzt2010/gysz/gydt/content/post_11019265.html",
@@ -13482,11 +13482,11 @@
         "山海村田复合景观"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "第一次到马峦山环线先把马峦山溪瀑群设为主目标，再视天气和现场边界决定是否前往山海村田复合景观；返程节点应在出发前确定。",
+      "first_visit": "先用官方导览在马峦山溪瀑段和山海村田段之间选一个单段，保存入口、出口和下撤点；到计划终点离开，不现场追加穿越。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公共交通先到梅沙湾公园起终点，跨坪山、盐田和大鹏片区，再以马峦山环线公开参观入口为终点；多入口地点须按计划游线选择入口，并预先锁定返程站点。",
-      "parking": "导航至马峦山环线官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "以梅沙湾公园为总路线识别点，实际出行前在深圳远足径官方导览选择单段入口、出口和公共交通；不要仅导航环线总名。",
+      "parking": "跨区山海线优先公共交通分段；自驾只停所选入口正规停车场并安排回程接驳，不在村道、溪谷口或消防通道停放。",
+      "season": "10月至次年4月较适合分段；汛期溪谷水位和路面变化快，台风、暴雨、雷电或地质灾害预警时取消。",
       "status": "跨区挑战线路｜按官方开放分段通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://www.sz.gov.cn/szzt2010/gysz/gydt/content/post_11019265.html",
@@ -13522,11 +13522,11 @@
         "约1600米累计爬升"
       ],
       "fit": "适合有基础步行体力、愿意按天气调整路线的人；行动不便者应只选择平缓开放段。",
-      "first_visit": "先核对三水线当天开放与入口，从连续山脊与108座山峰意象开始；体力或时间不足时，在前往约1600米累计爬升之前结束，不临时追加陌生支线。",
+      "first_visit": "从白沙湾公园出发前先确认水祖坑端接驳，并保存官方轨迹、补给与下撤点；没有连续山地经验、足量饮水或离线导航时不走全线。",
       "ticket": "免费｜仅按官方开放慢行段通行；沿线运营项目另计",
-      "transport": "公共交通先到白沙湾公园至水祖坑片区，再以三水线公开参观入口为终点；多入口地点须按计划游线选择入口，并预先锁定返程站点。",
-      "parking": "导航至三水线官方开放入口配套或邻近正规公共停车场；周末满位即改乘公共交通，不在绿道口、村道或消防通道临停。",
-      "season": "10 月至次年 4 月较舒适；4—9 月湿热且雷雨集中，强降雨前后不进入山脊、溪谷、陡坡或低洼路段。",
+      "transport": "白沙湾公园和水祖坑是异地两端，出发前必须在深圳远足径官方导览核对轨迹、下撤点与两端交通；不把自驾车辆留在无法回取的一端。",
+      "parking": "优先采用公共交通或预先约定的两端接驳；自驾仅停开放端点正规停车场，不占白沙湾或水祖坑周边村道和救援通道。",
+      "season": "仅在凉爽、干燥且无预警的日期考虑；高温、暴雨、雷电、大风、森林防火或地质灾害预警任一出现即取消。",
       "status": "高强度挑战线路｜仅在官方开放和适宜天气下通行",
       "source_label": "深圳官方绿道与远足径资料",
       "source_url": "https://www.sz.gov.cn/szzt2010/gysz/gydt/content/post_11019265.html",

@@ -6,12 +6,21 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import shutil
+import subprocess
 from pathlib import Path
 from urllib.parse import quote, urlencode
+
+try:
+    from PIL import Image
+except ImportError:  # pragma: no cover - local fallback only
+    Image = None
 
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_URL = "https://laypen-netizen.github.io/shenzhen-outdoor-guide-ebook/"
+PLACE_IMAGE_WIDTHS = (720, 960)
+PLACE_IMAGE_ORIGINAL_WIDTH = 1200
 FEATURED_NAMES = (
     "莲花山公园",
     "梧桐山风景名胜区",
@@ -52,6 +61,96 @@ def write(relative: str, content: str) -> None:
 def versioned_asset(prefix: str, relative: str) -> str:
     digest = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()[:10]
     return f"{prefix}{relative}?v={digest}"
+
+
+def card_summary(value: object, limit: int = 60) -> str:
+    summary = " ".join(str(value).split())
+    return summary if len(summary) <= limit else f"{summary[:limit].rstrip()}…"
+
+
+def responsive_place_image_path(path: str, width: int) -> str:
+    relative = Path(path)
+    return (relative.parent / str(width) / relative.name).as_posix()
+
+
+def ensure_responsive_place_images(places: list[dict[str, object]]) -> None:
+    originals = sorted({ROOT / str(spot["image"]["path"]) for spot in places})
+    missing = [source for source in originals if not source.is_file()]
+    if missing:
+        relative = ", ".join(str(source.relative_to(ROOT)) for source in missing)
+        raise FileNotFoundError(f"missing responsive image source: {relative}")
+
+    pending: list[tuple[Path, Path, int]] = []
+    for source in originals:
+        source_mtime = source.stat().st_mtime
+        relative = source.relative_to(ROOT).as_posix()
+        for width in PLACE_IMAGE_WIDTHS:
+            target = ROOT / responsive_place_image_path(relative, width)
+            if target.exists() and target.stat().st_mtime >= source_mtime:
+                continue
+            pending.append((source, target, width))
+
+    if not pending:
+        return
+    if Image is not None:
+        for source, target, width in pending:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            with Image.open(source) as image:
+                resized = image.copy()
+                resized.thumbnail((width, width), Image.Resampling.LANCZOS)
+                save_options = {"quality": 82, "optimize": True}
+                if resized.mode not in ("RGB", "L"):
+                    resized = resized.convert("RGB")
+                resized.save(target, **save_options)
+        return
+
+    tool = shutil.which("sips")
+    if not tool:
+        missing = pending[0][1].relative_to(ROOT)
+        raise RuntimeError(f"missing responsive image {missing} and neither Pillow nor sips is available")
+
+    for source, target, width in pending:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(
+            [tool, "-Z", str(width), str(source), "--out", str(target)],
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+
+
+def responsive_image_attrs(
+    path: str,
+    *,
+    prefix: str,
+    sizes: str,
+    fallback_width: int,
+    loading: str | None = None,
+    fetchpriority: str | None = None,
+) -> str:
+    sources = [
+        (responsive_place_image_path(path, width), width)
+        for width in PLACE_IMAGE_WIDTHS
+        if width >= fallback_width
+    ]
+    if fallback_width not in [width for _, width in sources]:
+        sources.insert(0, (responsive_place_image_path(path, fallback_width), fallback_width))
+    srcset = ", ".join(f"{prefix}{candidate} {width}w" for candidate, width in sources)
+    srcset += f", {prefix}{path} {PLACE_IMAGE_ORIGINAL_WIDTH}w"
+    attrs = [
+        f'src="{h(prefix + responsive_place_image_path(path, fallback_width))}"',
+        f'srcset="{h(srcset)}"',
+        f'sizes="{h(sizes)}"',
+        'width="1200" height="540"',
+        'decoding="async"',
+    ]
+    if loading:
+        attrs.append(f'loading="{loading}"')
+    if fetchpriority:
+        attrs.append(f'fetchpriority="{fetchpriority}"')
+    else:
+        attrs.append('fetchpriority="low"')
+    return " ".join(attrs)
 
 
 def nav(prefix: str, active: str, *, district_slug: str | None = None) -> str:
@@ -181,14 +280,23 @@ def ticket_class(kind: str) -> str:
 def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> str:
     image = spot["image"]
     loading = "eager" if eager else "lazy"
+    fetchpriority = "high" if eager else "low"
     alt = image["description"] if image["kind"] == "real_photo" else f'{spot["name"]}主题编辑配图（非现场实景）'
+    image_attrs = responsive_image_attrs(
+        str(image["path"]),
+        prefix=prefix,
+        sizes="(max-width: 680px) calc(100vw - 74px), (max-width: 1080px) calc(50vw - 42px), 360px",
+        fallback_width=720,
+        loading=loading,
+        fetchpriority=fetchpriority,
+    )
     return f"""
     <article class="place-card" data-name="{h(spot['name'])}" data-area="{h(spot['area'])}"
       data-district="{h(spot['district_primary'])}" data-profile="{h(spot['profile_key'])}"
       data-ticket="{h(spot['ticket_kind'])}" data-indoor="{str(bool(spot['indoor'])).lower()}"
       data-place-id="{h(spot['spot_number'])}">
       <a class="place-card-image" href="{prefix}{h(spot['detail_path'])}">
-        <img src="{prefix}{h(image['path'])}" alt="{h(alt)}" loading="{loading}" decoding="async" width="1200" height="540">
+        <img {image_attrs} alt="{h(alt)}">
         <span class="image-kind {('real-photo' if image['kind'] == 'real_photo' else 'editorial-image')}">{h(image['kind_label'])}</span>
       </a>
       <div class="place-card-body">
@@ -198,7 +306,7 @@ def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> 
           <span class="{ticket_class(str(spot['ticket_kind']))}">{h(str(spot['ticket']).split('｜')[0])}</span>
         </div>
         <h3><a href="{prefix}{h(spot['detail_path'])}">{h(spot['name'])}</a></h3>
-        <p>{h(spot['intro'])}</p>
+        <p>{h(card_summary(spot['intro']))}</p>
         <div class="card-footer">
           <span>{h(spot['area'])}</span>
           <a href="{prefix}{h(spot['detail_path'])}" aria-label="查看{h(spot['name'])}完整介绍">完整介绍 <span aria-hidden="true">→</span></a>
@@ -212,7 +320,10 @@ def index_body(data: dict[str, object]) -> str:
     meta = data["meta"]
     places = data["places"]
     place_by_name = {spot["name"]: spot for spot in places}
-    featured = [place_by_name[name] for name in FEATURED_NAMES if name in place_by_name]
+    missing_featured = [name for name in FEATURED_NAMES if name not in place_by_name]
+    if missing_featured:
+        raise ValueError(f"featured places are missing: {', '.join(missing_featured)}")
+    featured = [place_by_name[name] for name in FEATURED_NAMES]
     profiles = data["profiles"]
     profile_links = "".join(
         f'<a class="scene-card" href="places/?{urlencode({"profile": key})}"><span aria-hidden="true">{PROFILE_ICONS[key]}</span><strong>{h(label)}</strong><small>查看相关景点</small></a>'
@@ -229,7 +340,7 @@ def index_body(data: dict[str, object]) -> str:
         """
         for district in data["districts"]
     )
-    featured_cards = "".join(place_card(spot, "", eager=index < 2) for index, spot in enumerate(featured))
+    featured_cards = "".join(place_card(spot, "") for spot in featured)
     return f"""
     <section class="web-hero">
       <div class="page-width web-hero-grid">
@@ -249,7 +360,11 @@ def index_body(data: dict[str, object]) -> str:
           <p class="attachment-note">需要离线保存？<a href="downloads/">PDF / DOCX 作为附加格式下载</a></p>
         </div>
         <div class="hero-visual" aria-label="指南内容概览">
-          <img src="assets/shenzhen-nine-scenes.png" alt="深圳山海、城市、公园与文化场馆主题编辑插画拼图" width="1600" height="900" fetchpriority="high">
+          <img src="assets/shenzhen-nine-scenes-720.webp"
+            srcset="assets/shenzhen-nine-scenes-720.webp 720w, assets/shenzhen-nine-scenes-1200.webp 1200w"
+            sizes="(max-width: 680px) calc(100vw - 50px), (max-width: 1080px) min(720px, 92vw), 560px"
+            alt="深圳山海、城市、公园与文化场馆主题编辑插画拼图"
+            width="1200" height="675" fetchpriority="high" decoding="async">
           <div class="hero-visual-label"><span>WEB + H5</span><strong>山海 · 城市 · 人文</strong></div>
           <dl class="hero-stats">
             <div><dt>{meta['place_count']}</dt><dd>景点独立网页</dd></div>
@@ -263,19 +378,22 @@ def index_body(data: dict[str, object]) -> str:
     <section class="section section-paper">
       <div class="page-width">
         <div class="section-heading"><p class="eyebrow">FIND YOUR SCENE</p><h2>今天想去哪里？</h2><p>按出行场景快速缩小范围，再进入完整目录精细筛选。</p></div>
-        <div class="scene-grid">{profile_links}</div>
+        <p class="mobile-scroll-hint">左右滑动查看更多主题 <span aria-hidden="true">→</span></p>
+        <div class="scene-grid mobile-scroll-row">{profile_links}</div>
       </div>
     </section>
     <section class="section section-white" id="districts">
       <div class="page-width">
         <div class="section-heading"><p class="eyebrow">TEN DISTRICTS</p><h2>十区各有自己的深圳</h2><p>从福田中心区到大鹏山海，把跨城清单拆成真正可执行的区域行程。</p></div>
-        <div class="district-grid">{district_cards}</div>
+        <p class="mobile-scroll-hint">左右滑动查看全部十区 <span aria-hidden="true">→</span></p>
+        <div class="district-grid mobile-scroll-row">{district_cards}</div>
       </div>
     </section>
     <section class="section section-paper">
       <div class="page-width">
         <div class="section-heading heading-row"><div><p class="eyebrow">START HERE</p><h2>十个代表性起点</h2></div><a class="text-link" href="places/">查看全部景点 →</a></div>
-        <div class="place-grid featured-grid">{featured_cards}</div>
+        <p class="mobile-scroll-hint">左右滑动查看代表景点 <span aria-hidden="true">→</span></p>
+        <div class="place-grid featured-grid mobile-scroll-row">{featured_cards}</div>
       </div>
     </section>
     <section class="section decision-section">
@@ -339,7 +457,7 @@ def catalog_body(data: dict[str, object]) -> str:
 def district_body(district: dict[str, object], spots: list[dict[str, object]]) -> str:
     profiles = sorted({spot["profile_label"] for spot in spots})
     profile_chips = "".join(f"<span>{h(item)}</span>" for item in profiles)
-    cards = "".join(place_card(spot, "../../", eager=index < 2) for index, spot in enumerate(spots))
+    cards = "".join(place_card(spot, "../../") for spot in spots)
     return f"""
     <section class="district-hero">
       <div class="page-width">
@@ -374,6 +492,13 @@ def detail_body(
 ) -> str:
     image = spot["image"]
     alt = image["description"] if image["kind"] == "real_photo" else f'{spot["name"]}主题编辑配图（非现场实景）'
+    detail_image_attrs = responsive_image_attrs(
+        str(image["path"]),
+        prefix="../../",
+        sizes="(max-width: 680px) calc(100vw - 28px), (max-width: 1180px) calc(100vw - 40px), 560px",
+        fallback_width=960,
+        fetchpriority="high",
+    )
     highlights = "".join(f"<li>{h(item)}</li>" for item in spot["highlights"])
     related_cards = "".join(place_card(item, "../../") for item in related)
     image_credit = ""
@@ -404,7 +529,7 @@ def detail_body(
         <nav class="breadcrumb" aria-label="面包屑"><a href="../../index.html">首页</a><span>／</span><a href="../../places/">全部景点</a><span>／</span><a href="../../districts/{h(spot['district_slug'])}/">{h(spot['district_primary'])}</a><span>／</span><span aria-current="page">{h(spot['name'])}</span></nav>
         <div class="detail-hero-grid">
           <figure class="detail-image-wrap">
-            <img src="../../{h(image['path'])}" alt="{h(alt)}" width="1200" height="540" fetchpriority="high">
+            <img {detail_image_attrs} alt="{h(alt)}">
             <figcaption class="image-kind {('real-photo' if image['kind'] == 'real_photo' else 'editorial-image')}">{h(image['kind_label'])}</figcaption>
           </figure>
           <div class="detail-title">
@@ -461,8 +586,9 @@ def downloads_body() -> str:
 
 def build() -> None:
     data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
-    data["meta"]["art_count"] = sum(spot["category"] == "美术馆 / 艺术空间" for spot in data["places"])
     places = data["places"]
+    ensure_responsive_place_images(places)
+    data["meta"]["art_count"] = sum(spot["category"] == "美术馆 / 艺术空间" for spot in places)
     place_count = len(places)
     districts = {item["name"]: item for item in data["districts"]}
 
