@@ -288,22 +288,6 @@ def image_kind_class(image: dict[str, object]) -> str:
     return "real-photo" if str(image.get("kind", "")) in {"real_photo", "user_provided_photo"} else "editorial-image"
 
 
-def gallery_markup(spot: dict[str, object], prefix: str) -> str:
-    gallery = spot.get("gallery", [])
-    if not gallery:
-        return ""
-    items = "".join(
-        f'''<figure class="detail-gallery-item detail-gallery-{h(str(image.get("layout", "half")))}">
-          <a class="detail-gallery-link" href="{h(prefix + str(image["path"]))}" target="_blank" rel="noopener">
-            <img src="{h(prefix + str(image["path"]))}" alt="{h(image_alt_text(spot, image))}" loading="lazy" decoding="async">
-          </a>
-          <figcaption class="image-kind {image_kind_class(image)}">{h(str(image["kind_label"]))}</figcaption>
-        </figure>'''
-        for image in gallery
-    )
-    return f'<div class="detail-gallery" aria-label="补充图片">{items}</div>'
-
-
 def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> str:
     image = spot["image"]
     loading = "eager" if eager else "lazy"
@@ -526,21 +510,6 @@ def detail_body(
         fallback_width=960,
         fetchpriority="high",
     )
-    gallery = gallery_markup(spot, "../../")
-    detail_media = (
-        f'''<div class="detail-media">
-            <figure class="detail-image-wrap">
-              <img {detail_image_attrs} alt="{h(alt)}">
-              <figcaption class="image-kind {image_kind_class(image)}">{h(image['kind_label'])}</figcaption>
-            </figure>
-            {gallery}
-          </div>'''
-        if gallery
-        else f'''<figure class="detail-image-wrap">
-            <img {detail_image_attrs} alt="{h(alt)}">
-            <figcaption class="image-kind {image_kind_class(image)}">{h(image['kind_label'])}</figcaption>
-          </figure>'''
-    )
     highlights = "".join(f"<li>{h(item)}</li>" for item in spot["highlights"])
     related_cards = "".join(place_card(item, "../../") for item in related)
     image_credit = ""
@@ -577,7 +546,10 @@ def detail_body(
       <div class="page-width">
         <nav class="breadcrumb" aria-label="面包屑"><a href="../../index.html">首页</a><span>／</span><a href="../../places/">全部景点</a><span>／</span><a href="../../districts/{h(spot['district_slug'])}/">{h(spot['district_primary'])}</a><span>／</span><span aria-current="page">{h(spot['name'])}</span></nav>
         <div class="detail-hero-grid">
-          {detail_media}
+          <figure class="detail-image-wrap">
+            <img {detail_image_attrs} alt="{h(alt)}">
+            <figcaption class="image-kind {image_kind_class(image)}">{h(image['kind_label'])}</figcaption>
+          </figure>
           <div class="detail-title">
             <div class="card-tags"><span>{h(spot['district_primary'])}</span><span>{h(spot['profile_label'])}</span><span class="{ticket_class(str(spot['ticket_kind']))}">{h(str(spot['ticket']).split('｜')[0])}</span></div>
             <p class="spot-number">SHENZHEN GUIDE · {h(spot['spot_number'])}</p>

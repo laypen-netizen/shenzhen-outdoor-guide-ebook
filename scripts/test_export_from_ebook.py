@@ -93,7 +93,7 @@ class StaticSiteRegressionTests(unittest.TestCase):
         self.assertIn("免票人群也需", museum["ticket"])
         self.assertIn("预约0元门票", museum["ticket"])
 
-    def test_shenzhen_natural_history_museum_uses_submitted_image_set(self) -> None:
+    def test_shenzhen_natural_history_museum_uses_one_submitted_image(self) -> None:
         data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
         museum = next(
             place for place in data["places"] if place["name"] == "深圳自然博物馆"
@@ -101,15 +101,7 @@ class StaticSiteRegressionTests(unittest.TestCase):
 
         self.assertEqual(museum["image"]["kind"], "user_provided_photo")
         self.assertEqual(museum["image"]["path"], "assets/places/331.jpg")
-        self.assertEqual(len(museum["gallery"]), 3)
-        self.assertEqual(
-            [item["path"] for item in museum["gallery"]],
-            [
-                "assets/gallery/331-aerial.jpg",
-                "assets/gallery/331-info.jpg",
-                "assets/gallery/331-map.png",
-            ],
-        )
+        self.assertNotIn("gallery", museum)
         self.assertIn("用户提供", museum["image"]["kind_label"])
 
     def test_featured_places_must_all_be_present(self) -> None:

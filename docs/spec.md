@@ -7,7 +7,7 @@
 ## Users and Core Journeys
 
 - 手机游客：按区域、类型和票务筛选，查看交通、停车、季节与状态后直接出发。
-- 桌面读者：搜索景点，浏览十区目录，并在独立详情页阅读完整介绍、图片来源与必要的补充图示。
+- 桌面读者：搜索景点，浏览十区目录，并在独立详情页阅读完整介绍与图片来源。
 - 内容维护者：从结构化数据重新生成全站，并用自动检查证明没有遗漏景点。
 
 ## Tech Stack
@@ -33,7 +33,7 @@
 - `districts/<区>/index.html`：深圳十区专题页
 - `data/places.json`：全站结构化内容真源
 - `data/place_ids.json`：公开编号真源，永久保留既有景点 URL
-- `assets/places/`：331 张逐景点主图；`720/` 与 `960/` 子目录为生成器维护的响应式版本；`assets/gallery/` 仅存放详情页补充图示
+- `assets/places/`：331 张逐景点主图；`720/` 与 `960/` 子目录为生成器维护的响应式版本
 - `scripts/export_from_ebook.py`：从电子书工程导出内容与图片
 - `scripts/build_site.py`：静态页面生成器
 - `scripts/verify_site.py`：覆盖、链接、SEO / 分享元数据、哈希与 H5 合同检查

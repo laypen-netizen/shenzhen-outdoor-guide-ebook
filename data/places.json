@@ -13586,36 +13586,7 @@
         "artist": "用户提供",
         "license": "网站使用授权由提交者提供；原始版权信息待补充",
         "license_url": ""
-      },
-      "gallery": [
-        {
-          "path": "assets/gallery/331-aerial.jpg",
-          "layout": "half",
-          "kind": "user_provided_reference",
-          "kind_label": "用户提供·建筑参考图",
-          "description": "用户提供的深圳自然博物馆鸟瞰建筑参考图；是否为实景或效果图待核实",
-          "artist": "用户提供",
-          "license": "网站使用授权由提交者提供；原始版权信息待补充"
-        },
-        {
-          "path": "assets/gallery/331-info.jpg",
-          "layout": "long",
-          "kind": "user_provided_reference",
-          "kind_label": "用户提供·开放信息图",
-          "description": "用户提供的深圳自然博物馆开放与展厅信息长图；具体规则仍以官方公告为准",
-          "artist": "用户提供",
-          "license": "网站使用授权由提交者提供；原始版权信息待补充"
-        },
-        {
-          "path": "assets/gallery/331-map.png",
-          "layout": "wide",
-          "kind": "user_provided_reference",
-          "kind_label": "用户提供·交通停车示意图",
-          "description": "用户提供的深圳自然博物馆周边交通与停车示意图；路线和停车规则以现场及官方公告为准",
-          "artist": "用户提供",
-          "license": "网站使用授权由提交者提供；原始版权信息待补充"
-        }
-      ]
+      }
     }
   ]
 }
