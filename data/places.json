@@ -1,11 +1,11 @@
 {
   "meta": {
     "title": "深圳户外景点指南",
-    "edition": "2026 年 7 月版",
-    "updated_at": "2026-07-19",
-    "place_count": 330,
+    "edition": "2026 年 8 月版",
+    "updated_at": "2026-08-01",
+    "place_count": 331,
     "district_count": 10,
-    "museum_count": 68,
+    "museum_count": 69,
     "art_count": 20,
     "real_photo_count": 69
   },
@@ -72,7 +72,7 @@
       "tagline": "自然山水、东纵历史与新公共文化建筑之间距离很近。",
       "route": "坪山文化聚落—坪山美术馆—东江纵队纪念馆；晴天另留半天给马峦山。",
       "small_pick": "金龟村、坪山老街和大山陂公园更偏社区与自然教育，适合不追热门机位的人。",
-      "count": 18
+      "count": 19
     },
     {
       "name": "光明区",
@@ -13541,6 +13541,47 @@
         "kind": "editorial_illustration",
         "kind_label": "编辑配图·非现场实景",
         "description": "三水线主题编辑插图，非现场实景",
+        "detail_url": "",
+        "artist": "OpenAI 图像生成与本书编辑排版",
+        "license": "本书原创编辑插图",
+        "license_url": ""
+      }
+    },
+    {
+      "name": "深圳自然博物馆",
+      "category": "自然博物馆",
+      "area": "坪山区马峦街道沙坣社区·燕子湖片区",
+      "source_group": "museum",
+      "district": "坪山区",
+      "spot_number": "331",
+      "profile_key": "museum",
+      "image_key": "museum",
+      "intro": "深圳自然博物馆位于坪山区马峦街道沙坣社区的燕子湖片区，八大主题展厅从宇宙、地球、演化、恐龙、人类、生物、生态一路讲到深圳家园，把自然史、标本和本地山海放进一座新公共文化建筑。这里适合把展厅叙事与建筑、湖畔环境一起看，不宜只按一张展陈清单匆匆打卡。",
+      "highlights": [
+        "八大主题展厅",
+        "46亿年地球演化叙事",
+        "深圳本土山海与生物展陈"
+      ],
+      "fit": "适合亲子、研学、自然科学爱好者和高温或降雨日的室内行程；首次到访应预留完整半天并按预约时段入馆。",
+      "first_visit": "先按官方预约确认入馆时段，从宇宙、地球和演化展厅建立时间线，再看恐龙、人类、生物与生态展厅，最后用家园厅把全球自然史收回深圳；时间不足时保留家园厅，不在入口处临时排队碰运气。",
+      "ticket": "收费/预约｜工作日、周末均可前往；成人普通票80元，优待票60元；免票人群也需提前预约0元门票，可在官方小程序预约购票。",
+      "transport": "地铁16号线沙壆站D口步行或接驳到馆；也可乘深圳云巴至自然博物馆西站。出发前按预约通知和现场指引确认开放入口。",
+      "parking": "地下停车与社会车辆准入规则以馆方公告和现场为准；优先乘地铁或云巴，节假日不在燕子湖周边道路、消防通道和入口处临停等位。",
+      "season": "全年适合，室内展厅可作为高温、降雨日主行程；开馆初期和节假日客流、预约名额与临时限流可能变化，恶劣天气按馆方公告调整。",
+      "status": "已开馆｜开放时间、预约与临时限流以官方公告为准",
+      "source_label": "深圳自然博物馆官网｜深圳市文化广电旅游体育局开馆信息",
+      "source_url": "https://www.shenzhenmuseum.com/nature/index",
+      "district_primary": "坪山区",
+      "district_slug": "pingshan",
+      "profile_label": "博物馆",
+      "ticket_kind": "reservation",
+      "indoor": true,
+      "detail_path": "places/331/",
+      "image": {
+        "path": "assets/places/331.jpg",
+        "kind": "editorial_illustration",
+        "kind_label": "编辑配图·非现场实景",
+        "description": "深圳自然博物馆主题编辑插图，非现场实景",
         "detail_url": "",
         "artist": "OpenAI 图像生成与本书编辑排版",
         "license": "本书原创编辑插图",

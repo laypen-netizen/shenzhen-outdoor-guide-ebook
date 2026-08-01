@@ -66,6 +66,29 @@ class PublicationBoundaryTests(unittest.TestCase):
 
 
 class StaticSiteRegressionTests(unittest.TestCase):
+    def test_shenzhen_natural_history_museum_is_in_pingshan_public_data(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        museum = next(
+            place for place in data["places"] if place["name"] == "深圳自然博物馆"
+        )
+
+        self.assertEqual(data["meta"]["place_count"], 331)
+        self.assertEqual(data["meta"]["museum_count"], 69)
+        self.assertEqual(
+            next(district for district in data["districts"] if district["name"] == "坪山区")["count"],
+            19,
+        )
+        self.assertEqual(museum["district_primary"], "坪山区")
+        self.assertEqual(museum["spot_number"], "331")
+        self.assertEqual(museum["detail_path"], "places/331/")
+        self.assertIn("沙壆站", museum["transport"])
+        self.assertIn("官方公告", museum["status"])
+        self.assertIn("工作日、周末均可前往", museum["ticket"])
+        self.assertIn("成人普通票80元", museum["ticket"])
+        self.assertIn("优待票60元", museum["ticket"])
+        self.assertIn("免票人群也需", museum["ticket"])
+        self.assertIn("预约0元门票", museum["ticket"])
+
     def test_featured_places_must_all_be_present(self) -> None:
         data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
         data["places"] = [
