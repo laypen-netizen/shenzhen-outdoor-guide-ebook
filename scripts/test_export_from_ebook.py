@@ -170,6 +170,31 @@ class StaticSiteRegressionTests(unittest.TestCase):
         self.assertEqual(data["meta"]["museum_count"], 69)
         self.assertEqual(data["meta"]["real_photo_count"], 69)
 
+    def test_official_a_level_aliases_are_mapped_without_new_duplicate_pages(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        names = {place["name"] for place in data["places"]}
+        places = {place["name"]: place for place in data["places"]}
+        official_source = "https://wtl.sz.gov.cn/ggfw/lyl/jqjdylb/index.html"
+
+        self.assertEqual(len(names), data["meta"]["place_count"])
+        self.assertNotIn("观澜湖旅游休闲度假区", names)
+        self.assertNotIn("东山鹿嘴旅游区", names)
+        self.assertNotIn("水底山旅游度假区", names)
+
+        guanlan = places["观澜湖生态运动公社"]
+        self.assertIn("观澜湖旅游休闲度假区", guanlan["intro"])
+        self.assertEqual(guanlan["source_url"], official_source)
+        self.assertIn("观澜湖旅游休闲度假区", guanlan["source_label"])
+
+        luzui = places["鹿嘴山庄海岸"]
+        self.assertIn("东山鹿嘴旅游区", luzui["intro"])
+        self.assertEqual(luzui["source_url"], official_source)
+        self.assertIn("东山鹿嘴旅游区", luzui["source_label"])
+
+        for name in ("世界之窗", "锦绣中华民俗文化村", "欢乐谷", "欢乐海岸"):
+            with self.subTest(name=name):
+                self.assertIn(name, names)
+
     def test_missing_official_art_spaces_are_appended_without_alias_duplicates(self) -> None:
         data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
         expected = {
