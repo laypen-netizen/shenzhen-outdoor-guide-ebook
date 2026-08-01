@@ -7,7 +7,7 @@
     "district_count": 10,
     "museum_count": 69,
     "art_count": 33,
-    "real_photo_count": 69
+    "real_photo_count": 74
   },
   "districts": [
     {
@@ -3527,13 +3527,13 @@
       "detail_path": "places/084/",
       "image": {
         "path": "assets/places/084.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳市南山博物馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳市南山博物馆外观实景，来自 Wikimedia Commons",
+        "detail_url": "https://commons.wikimedia.org/wiki/File:Nanshan_Museum_2.jpg",
+        "artist": "WhisperToMe",
+        "license": "CC0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
@@ -11101,13 +11101,13 @@
       "detail_path": "places/257/",
       "image": {
         "path": "assets/places/257.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳科学技术馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳科学技术馆大厅实景，来自 Wikimedia Commons",
+        "detail_url": "https://commons.wikimedia.org/wiki/File:深圳科学技术馆大厅.jpg",
+        "artist": "Lhzss8",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
       }
     },
     {
@@ -12038,13 +12038,13 @@
       "detail_path": "places/279/",
       "image": {
         "path": "assets/places/279.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "大鹏半岛国家地质公园主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "大鹏半岛国家地质公园石碑实景，来自 Wikimedia Commons",
+        "detail_url": "https://commons.wikimedia.org/wiki/File:深圳 南澳 大鹏镇 新大村 大鹏半岛 国家地质公园 石碑 - By 科技小辛 - panoramio.jpg",
+        "artist": "科技小辛",
+        "license": "CC BY-SA 3.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/3.0/"
       }
     },
     {
@@ -12079,13 +12079,13 @@
       "detail_path": "places/280/",
       "image": {
         "path": "assets/places/280.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳市天文台主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳市天文台与大鹏海岸实景，来自 Wikimedia Commons",
+        "detail_url": "https://commons.wikimedia.org/wiki/File:Shenzhen_Observatory2021.jpg",
+        "artist": "Charlie fong",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
       }
     },
     {
@@ -12858,13 +12858,13 @@
       "detail_path": "places/299/",
       "image": {
         "path": "assets/places/299.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳大鹏半岛国家地质公园博物馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
-        "license_url": ""
+        "kind": "real_photo",
+        "kind_label": "授权实景图",
+        "description": "深圳大鹏半岛国家地质公园博物馆外观实景，来自 Wikimedia Commons",
+        "detail_url": "https://commons.wikimedia.org/wiki/File:深圳大鹏半岛国家地质公园博物馆 1.jpg",
+        "artist": "Mx. Granger",
+        "license": "CC0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {

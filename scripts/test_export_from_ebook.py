@@ -168,7 +168,34 @@ class StaticSiteRegressionTests(unittest.TestCase):
                 self.assertEqual(place["source_url"], "https://wtl.sz.gov.cn/ggfw/lyl/jqjdylb/index.html")
 
         self.assertEqual(data["meta"]["museum_count"], 69)
-        self.assertEqual(data["meta"]["real_photo_count"], 69)
+        self.assertEqual(data["meta"]["real_photo_count"], 74)
+
+    def test_selected_missing_real_photos_are_backed_by_open_license_metadata(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        expected = {
+            "深圳市南山博物馆": ("084", "WhisperToMe", "CC0", "Nanshan_Museum_2.jpg"),
+            "深圳科学技术馆": ("257", "Lhzss8", "CC BY-SA 4.0", "深圳科学技术馆大厅.jpg"),
+            "大鹏半岛国家地质公园": ("279", "科技小辛", "CC BY-SA 3.0", "国家地质公园 石碑"),
+            "深圳市天文台": ("280", "Charlie fong", "CC BY-SA 4.0", "Shenzhen_Observatory2021.jpg"),
+            "深圳大鹏半岛国家地质公园博物馆": ("299", "Mx. Granger", "CC0", "国家地质公园博物馆 1.jpg"),
+        }
+
+        for name, (spot_number, artist, license_name, file_hint) in expected.items():
+            with self.subTest(name=name):
+                place = next(place for place in data["places"] if place["name"] == name)
+                image = place["image"]
+                self.assertEqual(place["spot_number"], spot_number)
+                self.assertEqual(image["kind"], "real_photo")
+                self.assertEqual(image["artist"], artist)
+                self.assertEqual(image["license"], license_name)
+                self.assertIn("commons.wikimedia.org/wiki/File:", image["detail_url"])
+                self.assertIn(file_hint, image["detail_url"])
+                self.assertTrue(image["license_url"].startswith("https://creativecommons.org/"))
+
+        self.assertEqual(
+            sum(place["image"]["kind"] == "real_photo" for place in data["places"]),
+            data["meta"]["real_photo_count"],
+        )
 
     def test_official_a_level_aliases_are_mapped_without_new_duplicate_pages(self) -> None:
         data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
