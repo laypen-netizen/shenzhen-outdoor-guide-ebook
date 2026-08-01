@@ -1325,6 +1325,42 @@
     {
       "name": "深圳自然博物馆",
       "spot_number": "331"
+    },
+    {
+      "name": "世界之窗",
+      "spot_number": "332"
+    },
+    {
+      "name": "锦绣中华民俗文化村",
+      "spot_number": "333"
+    },
+    {
+      "name": "欢乐谷",
+      "spot_number": "334"
+    },
+    {
+      "name": "欢乐海岸",
+      "spot_number": "335"
+    },
+    {
+      "name": "青青世界",
+      "spot_number": "336"
+    },
+    {
+      "name": "深圳市野生动物园",
+      "spot_number": "337"
+    },
+    {
+      "name": "观澜山水田园旅游文化园",
+      "spot_number": "338"
+    },
+    {
+      "name": "地王观光·深港之窗",
+      "spot_number": "339"
+    },
+    {
+      "name": "光明红木文化小镇",
+      "spot_number": "340"
     }
   ]
 }

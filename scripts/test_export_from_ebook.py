@@ -72,7 +72,7 @@ class StaticSiteRegressionTests(unittest.TestCase):
             place for place in data["places"] if place["name"] == "深圳自然博物馆"
         )
 
-        self.assertEqual(data["meta"]["place_count"], 331)
+        self.assertEqual(data["meta"]["place_count"], 340)
         self.assertEqual(data["meta"]["museum_count"], 69)
         self.assertEqual(
             next(district for district in data["districts"] if district["name"] == "坪山区")["count"],
@@ -92,6 +92,35 @@ class StaticSiteRegressionTests(unittest.TestCase):
         self.assertIn("优待票60元", museum["ticket"])
         self.assertIn("免票人群也需", museum["ticket"])
         self.assertIn("预约0元门票", museum["ticket"])
+
+    def test_a_level_attractions_are_appended_without_duplicate_names(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        expected = {
+            "世界之窗": ("南山区", "332"),
+            "锦绣中华民俗文化村": ("南山区", "333"),
+            "欢乐谷": ("南山区", "334"),
+            "欢乐海岸": ("南山区", "335"),
+            "青青世界": ("南山区", "336"),
+            "深圳市野生动物园": ("南山区", "337"),
+            "观澜山水田园旅游文化园": ("龙华区", "338"),
+            "地王观光·深港之窗": ("罗湖区", "339"),
+            "光明红木文化小镇": ("光明区", "340"),
+        }
+
+        self.assertEqual(len(data["places"]), data["meta"]["place_count"])
+        names = [place["name"] for place in data["places"]]
+        self.assertEqual(len(names), len(set(names)))
+        for name, (district, spot_number) in expected.items():
+            with self.subTest(name=name):
+                place = next(place for place in data["places"] if place["name"] == name)
+                self.assertEqual(place["district_primary"], district)
+                self.assertEqual(place["spot_number"], spot_number)
+                self.assertEqual(place["detail_path"], f"places/{spot_number}/")
+                self.assertEqual(place["image"]["kind"], "editorial_illustration")
+                self.assertEqual(place["source_url"], "https://wtl.sz.gov.cn/ggfw/lyl/jqjdylb/index.html")
+
+        self.assertEqual(data["meta"]["museum_count"], 69)
+        self.assertEqual(data["meta"]["real_photo_count"], 69)
 
     def test_shenzhen_natural_history_museum_uses_one_submitted_image(self) -> None:
         data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
