@@ -72,7 +72,7 @@ class StaticSiteRegressionTests(unittest.TestCase):
             place for place in data["places"] if place["name"] == "深圳自然博物馆"
         )
 
-        self.assertEqual(data["meta"]["place_count"], 340)
+        self.assertEqual(data["meta"]["place_count"], 353)
         self.assertEqual(data["meta"]["museum_count"], 69)
         self.assertEqual(
             next(district for district in data["districts"] if district["name"] == "坪山区")["count"],
@@ -121,6 +121,44 @@ class StaticSiteRegressionTests(unittest.TestCase):
 
         self.assertEqual(data["meta"]["museum_count"], 69)
         self.assertEqual(data["meta"]["real_photo_count"], 69)
+
+    def test_missing_official_art_spaces_are_appended_without_alias_duplicates(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        expected = {
+            "旭生美术馆": ("宝安区", "341"),
+            "一雍美术馆": ("宝安区", "342"),
+            "越众历史影像馆": ("罗湖区", "343"),
+            "祥山艺术馆": ("龙岗区", "344"),
+            "泓岭美术馆": ("福田区", "345"),
+            "袁机美术馆": ("罗湖区", "346"),
+            "鳌湖美术馆": ("龙华区", "347"),
+            "禾花美术馆": ("龙岗区", "348"),
+            "天空美术馆": ("福田区", "349"),
+            "至美术馆": ("宝安区", "350"),
+            "梅沙艺术中心": ("盐田区", "351"),
+            "徐悲鸿文化艺术中心": ("南山区", "352"),
+            "华润大厦艺术中心美术馆": ("南山区", "353"),
+        }
+
+        self.assertEqual(data["meta"]["place_count"], 353)
+        self.assertEqual(data["meta"]["art_count"], 33)
+        names = [place["name"] for place in data["places"]]
+        self.assertEqual(len(names), len(set(names)))
+        for name, (district, spot_number) in expected.items():
+            with self.subTest(name=name):
+                place = next(place for place in data["places"] if place["name"] == name)
+                self.assertEqual(place["district_primary"], district)
+                self.assertEqual(place["spot_number"], spot_number)
+                self.assertEqual(place["category"], "美术馆 / 艺术空间")
+                self.assertEqual(place["detail_path"], f"places/{spot_number}/")
+                self.assertEqual(place["image"]["kind"], "editorial_illustration")
+                self.assertEqual(
+                    place["source_url"],
+                    "https://wtl.sz.gov.cn/ggfw/whl/msgylb/index_2.html",
+                )
+
+        self.assertIn("海上世界", names)
+        self.assertNotIn("海上世界文化艺术中心", names)
 
     def test_shenzhen_natural_history_museum_uses_one_submitted_image(self) -> None:
         data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))

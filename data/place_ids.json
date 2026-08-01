@@ -1361,6 +1361,58 @@
     {
       "name": "光明红木文化小镇",
       "spot_number": "340"
+    },
+    {
+      "name": "旭生美术馆",
+      "spot_number": "341"
+    },
+    {
+      "name": "一雍美术馆",
+      "spot_number": "342"
+    },
+    {
+      "name": "越众历史影像馆",
+      "spot_number": "343"
+    },
+    {
+      "name": "祥山艺术馆",
+      "spot_number": "344"
+    },
+    {
+      "name": "泓岭美术馆",
+      "spot_number": "345"
+    },
+    {
+      "name": "袁机美术馆",
+      "spot_number": "346"
+    },
+    {
+      "name": "鳌湖美术馆",
+      "spot_number": "347"
+    },
+    {
+      "name": "禾花美术馆",
+      "spot_number": "348"
+    },
+    {
+      "name": "天空美术馆",
+      "spot_number": "349"
+    },
+    {
+      "name": "至美术馆",
+      "spot_number": "350"
+    },
+    {
+      "name": "梅沙艺术中心",
+      "spot_number": "351"
+    },
+    {
+      "name": "徐悲鸿文化艺术中心",
+      "spot_number": "352"
+    },
+    {
+      "name": "华润大厦艺术中心美术馆",
+      "spot_number": "353"
     }
   ]
 }
