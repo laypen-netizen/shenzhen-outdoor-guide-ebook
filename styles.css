@@ -1049,10 +1049,18 @@ button {
   gap: 70px;
 }
 
-.district-tip p:last-child {
+.district-tip-copy {
   margin: 4px 0 0;
   color: var(--muted);
   font-size: 17px;
+}
+
+.district-ticket-note {
+  margin: 18px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 14px;
 }
 
 .detail-hero {

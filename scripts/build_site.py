@@ -380,7 +380,7 @@ def index_body(data: dict[str, object]) -> str:
           <dl class="hero-stats">
             <div><dt>{meta['place_count']}</dt><dd>景点独立网页</dd></div>
             <div><dt>{meta['district_count']}</dt><dd>区域专题</dd></div>
-            <div><dt>{meta['museum_count']}</dt><dd>家博物馆</dd></div>
+            <div><dt>{meta['museum_count']}</dt><dd>家已收录博物馆</dd></div>
             <div><dt>{meta['art_count']}</dt><dd>处美术空间</dd></div>
           </dl>
         </div>
@@ -469,6 +469,7 @@ def district_body(district: dict[str, object], spots: list[dict[str, object]]) -
     profiles = sorted({spot["profile_label"] for spot in spots})
     profile_chips = "".join(f"<span>{h(item)}</span>" for item in profiles)
     cards = "".join(place_card(spot, "../../") for spot in spots)
+    paid_count = sum(spot["ticket_kind"] == "paid" for spot in spots)
     return f"""
     <section class="district-hero">
       <div class="page-width">
@@ -480,7 +481,7 @@ def district_body(district: dict[str, object], spots: list[dict[str, object]]) -
       </div>
     </section>
     <section class="section section-paper">
-      <div class="page-width district-tip"><div><p class="eyebrow">SMALL PICKS</p><h2>本区小众选择</h2></div><p>{h(district['small_pick'])}</p></div>
+      <div class="page-width district-tip"><div><p class="eyebrow">SMALL PICKS</p><h2>本区小众选择</h2></div><div><p class="district-tip-copy">{h(district['small_pick'])}</p><p class="district-ticket-note">票务概览：明确标注收费 {paid_count} 个；其余条目可能免费、预约或按项目计费，出发前以详情页和官方公告为准。</p></div></div>
     </section>
     <section class="section section-white">
       <div class="page-width">

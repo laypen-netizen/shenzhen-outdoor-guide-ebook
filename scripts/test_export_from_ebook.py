@@ -10,7 +10,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from export_from_ebook import allocate_stable_place_ids
-from build_site import ensure_responsive_place_images, index_body, place_card
+from build_site import (
+    district_body,
+    ensure_responsive_place_images,
+    index_body,
+    place_card,
+)
 import verify_site
 from verify_site import PageParser
 
@@ -66,6 +71,49 @@ class PublicationBoundaryTests(unittest.TestCase):
 
 
 class StaticSiteRegressionTests(unittest.TestCase):
+    def test_district_boundaries_ticket_count_and_dynamic_status_are_explicit(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        dapeng = [place for place in data["places"] if place["district_slug"] == "dapeng"]
+
+        trail = next(place for place in data["places"] if place["name"] == "阳台山环线")
+        self.assertEqual(trail["district_primary"], "龙华区")
+        self.assertEqual(trail["district_slug"], "longhua")
+        self.assertIn("跨龙华、宝安和南山", trail["area"])
+
+        self.assertEqual(sum(place["ticket_kind"] == "paid" for place in dapeng), 5)
+        self.assertEqual(sum(place["name"] == "东山寺" for place in dapeng), 1)
+
+        qiniang = next(place for place in data["places"] if place["name"] == "七娘山")
+        self.assertIn("临时", qiniang["status"])
+        self.assertIn("天气", qiniang["status"])
+        self.assertNotIn("全线封闭", qiniang["status"])
+
+        bay = next(place for place in data["places"] if place["name"] == "深圳湾公园")
+        self.assertIn("福田区", bay["area"])
+        self.assertIn("南山区", bay["area"])
+
+        wutong = next(
+            place for place in data["places"] if place["name"] == "梧桐山风景名胜区"
+        )
+        self.assertIn("盐田", wutong["area"])
+        self.assertIn("龙岗", wutong["area"])
+
+    def test_district_page_reports_explicit_paid_count(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        district = next(item for item in data["districts"] if item["slug"] == "dapeng")
+        spots = [place for place in data["places"] if place["district_slug"] == "dapeng"]
+
+        markup = district_body(district, spots)
+
+        self.assertIn("票务概览：明确标注收费 5 个", markup)
+
+    def test_homepage_labels_museum_count_as_site_collection(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+
+        markup = index_body(data)
+
+        self.assertIn("家已收录博物馆", markup)
+
     def test_shenzhen_natural_history_museum_is_in_pingshan_public_data(self) -> None:
         data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
         museum = next(
