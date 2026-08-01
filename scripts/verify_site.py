@@ -270,6 +270,15 @@ def main() -> None:
                         errors.append(f'{spot["name"]}: real photo missing {field}')
                     elif html.escape(value, quote=True) not in markup:
                         errors.append(f'{spot["name"]}: real photo attribution missing from detail ({field})')
+            elif spot["image"]["kind"] == "source_photo":
+                for field in ("description", "detail_url", "artist", "license"):
+                    value = spot["image"].get(field, "")
+                    if not value:
+                        errors.append(f'{spot["name"]}: source photo missing {field}')
+                    elif html.escape(value, quote=True) not in markup:
+                        errors.append(f'{spot["name"]}: source photo disclosure missing from detail ({field})')
+                if spot["image"].get("license_url"):
+                    errors.append(f'{spot["name"]}: source photo must not expose an unverified license URL')
             elif not spot["image"].get("description"):
                 errors.append(f'{spot["name"]}: editorial image missing description')
         image_path = ROOT / spot["image"]["path"]
@@ -353,6 +362,7 @@ def main() -> None:
                 "museums": data["meta"]["museum_count"],
                 "art_spaces": data["meta"]["art_count"],
                 "real_photos": data["meta"]["real_photo_count"],
+                "source_photos": data["meta"].get("source_photo_count", 0),
                 "ebook_hashes": "ok",
                 "errors": [],
             },

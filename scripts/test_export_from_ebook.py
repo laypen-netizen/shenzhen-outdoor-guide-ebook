@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from export_from_ebook import allocate_stable_place_ids
 from build_site import (
+    detail_body,
     district_body,
     ensure_responsive_place_images,
     index_body,
@@ -195,6 +196,79 @@ class StaticSiteRegressionTests(unittest.TestCase):
         self.assertEqual(
             sum(place["image"]["kind"] == "real_photo" for place in data["places"]),
             data["meta"]["real_photo_count"],
+        )
+
+    def test_source_photo_is_disclosed_without_claiming_authorization(self) -> None:
+        spot = {
+            "name": "测试博物馆",
+            "area": "测试片区",
+            "district_primary": "南山区",
+            "district_slug": "nanshan",
+            "profile_key": "museum",
+            "profile_label": "博物馆",
+            "category": "博物馆",
+            "ticket_kind": "free",
+            "ticket": "免费",
+            "indoor": True,
+            "spot_number": "998",
+            "detail_path": "places/998/",
+            "intro": "测试景点介绍",
+            "highlights": ["测试亮点"],
+            "fit": "适合测试",
+            "first_visit": "先看入口",
+            "transport": "测试交通",
+            "parking": "测试停车",
+            "season": "四季可访",
+            "status": "以现场公告为准",
+            "source_url": "https://example.com/official",
+            "source_label": "官方参考",
+            "image": {
+                "path": "assets/places/998.jpg",
+                "kind": "source_photo",
+                "kind_label": "来源实景图·许可待核验",
+                "description": "测试博物馆入口实景，来源页面发布日期为2026-02-20",
+                "detail_url": "https://example.com/source-article",
+                "artist": "来源页面未标注",
+                "license": "许可待核验",
+                "license_url": "",
+            },
+        }
+
+        markup = detail_body(spot, None, None, [])
+
+        self.assertIn("来源实景图·许可待核验", markup)
+        self.assertIn("查看来源页面", markup)
+        self.assertIn("许可状态：许可待核验", markup)
+        self.assertNotIn("授权实景图", markup)
+        self.assertNotIn('href=""', markup)
+
+    def test_recent_photo_refresh_batch_has_transparent_source_types(self) -> None:
+        data = json.loads((ROOT / "data/places.json").read_text(encoding="utf-8"))
+        places = {place["spot_number"]: place for place in data["places"]}
+
+        art_museum = places["227"]
+        self.assertEqual(art_museum["image"]["kind"], "real_photo")
+        self.assertIn("July_2026", art_museum["image"]["detail_url"])
+        self.assertEqual(art_museum["image"]["license"], "CC0")
+        self.assertEqual(art_museum["image"]["artist"], "BSOWN yamewl CHUNG Wuoo")
+
+        for spot_number, source_hint in {
+            "085": "2026-07-22",
+            "116": "2026-02-20",
+        }.items():
+            with self.subTest(spot_number=spot_number):
+                image = places[spot_number]["image"]
+                self.assertEqual(image["kind"], "source_photo")
+                self.assertEqual(image["kind_label"], "来源实景图·许可待核验")
+                self.assertIn(source_hint, image["description"])
+                self.assertTrue(image["detail_url"].startswith("https://"))
+                self.assertEqual(image["license"], "许可待核验")
+                self.assertEqual(image["license_url"], "")
+
+        self.assertEqual(data["meta"]["source_photo_count"], 2)
+        self.assertEqual(
+            sum(place["image"]["kind"] == "source_photo" for place in data["places"]),
+            data["meta"]["source_photo_count"],
         )
 
     def test_official_a_level_aliases_are_mapped_without_new_duplicate_pages(self) -> None:

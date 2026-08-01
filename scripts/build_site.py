@@ -285,7 +285,7 @@ def image_alt_text(spot: dict[str, object], image: dict[str, object]) -> str:
 
 
 def image_kind_class(image: dict[str, object]) -> str:
-    return "real-photo" if str(image.get("kind", "")) in {"real_photo", "user_provided_photo"} else "editorial-image"
+    return "real-photo" if str(image.get("kind", "")) in {"real_photo", "source_photo", "user_provided_photo"} else "editorial-image"
 
 
 def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> str:
@@ -520,6 +520,14 @@ def detail_body(
           <span>作者：{h(image['artist'])}</span>
           <a href="{h(image['detail_url'])}" target="_blank" rel="noopener">查看原图</a>
           <a href="{h(image['license_url'])}" target="_blank" rel="noopener">{h(image['license'])}</a>
+        </div>
+        """
+    elif image["kind"] == "source_photo":
+        image_credit = f"""
+        <div class="image-credit source-photo-credit"><strong>实景图来源</strong><span>{h(image['description'])}</span>
+          <span>作者：{h(image['artist'])}</span>
+          <a href="{h(image['detail_url'])}" target="_blank" rel="noopener">查看来源页面</a>
+          <span>许可状态：{h(image['license'])}</span>
         </div>
         """
     elif str(image["kind"]).startswith("user_provided"):

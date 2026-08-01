@@ -7,7 +7,8 @@
     "district_count": 10,
     "museum_count": 69,
     "art_count": 33,
-    "real_photo_count": 74
+    "real_photo_count": 74,
+    "source_photo_count": 2
   },
   "districts": [
     {
@@ -3568,12 +3569,12 @@
       "detail_path": "places/085/",
       "image": {
         "path": "assets/places/085.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳市南山区南头古城博物馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
+        "kind": "source_photo",
+        "kind_label": "来源实景图·许可待核验",
+        "description": "南头古城博物馆外观实景；来源攻略页面更新于2026-07-22，图片路径标注为2024-10并注明图片来源南山博物馆",
+        "detail_url": "https://utravel.com.hk/news/detail/20045237/%E6%B7%B1%E5%9C%B3%E5%8D%97%E9%A0%AD%E5%8F%A4%E5%9F%8E%E6%94%BB%E7%95%A5-%E5%8D%97%E9%A0%AD%E5%8F%A4%E5%9F%8E%E4%B8%80%E6%97%A5%E9%81%8A%E7%8E%A9%E6%A8%82%E6%8E%A8%E4%BB%8B%E6%99%AF%E9%BB%9E%E7%BE%8E%E9%A3%9F%E5%BF%85%E5%8E%BB%E5%8D%9A%E7%89%A9%E9%A4%A8%E9%99%84%E4%BA%A4%E9%80%9A%E5%9C%B0%E5%9C%96",
+        "artist": "来源页面未标注",
+        "license": "许可待核验",
         "license_url": ""
       }
     },
@@ -5037,12 +5038,12 @@
       "detail_path": "places/116/",
       "image": {
         "path": "assets/places/116.jpg",
-        "kind": "editorial_illustration",
-        "kind_label": "编辑配图·非现场实景",
-        "description": "深圳市中英街历史博物馆主题编辑插图，非现场实景",
-        "detail_url": "",
-        "artist": "OpenAI 图像生成与本书编辑排版",
-        "license": "本书原创编辑插图",
+        "kind": "source_photo",
+        "kind_label": "来源实景图·许可待核验",
+        "description": "中英街历史博物馆入口实景；来源报道发布于2026-02-20，图片未标注摄影者",
+        "detail_url": "https://www.dotdotnews.com/a/202602/20/AP69983137e4b0c32d4f695503.html",
+        "artist": "来源页面未标注",
+        "license": "许可待核验",
         "license_url": ""
       }
     },
@@ -9886,11 +9887,11 @@
         "path": "assets/places/227.jpg",
         "kind": "real_photo",
         "kind_label": "授权实景图",
-        "description": "深圳美术馆（新馆）实景：龙华馆舍入口、遮阳构件与展览标识",
-        "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E6%B7%B1%E5%9C%B3%E5%B8%82%E5%9B%BE%E4%B9%A6%E9%A6%86%E7%BE%8E%E6%9C%AF%E9%A6%86%E9%BE%99%E5%8D%8E.jpg",
-        "artist": "Liu Nan",
-        "license": "CC BY-SA 2.0",
-        "license_url": "https://creativecommons.org/licenses/by-sa/2.0/"
+        "description": "深圳美术馆（新馆）入口实景，拍摄于2026-07-16，来自 Wikimedia Commons",
+        "detail_url": "https://commons.wikimedia.org/wiki/File:SZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E9%BE%8D%E8%8F%AF_Longhua_%E6%97%BA%E6%B0%91%E8%A1%97_Wangmin_Street_%E6%B7%B1%E5%9C%B3%E7%BE%8E%E8%A1%93%E9%A4%A8_Shenzhen_Art_Museum_entrance_door_July_2026_N13P.jpg",
+        "artist": "BSOWN yamewl CHUNG Wuoo",
+        "license": "CC0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
       }
     },
     {
