@@ -1861,6 +1861,7 @@ button {
   }
 }
 
+<<<<<<< HEAD
 /* map page */
 .map-section { padding: 0 0 40px; }
 .map-layout { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: stretch; }
@@ -1876,3 +1877,9 @@ button {
   .map-container { height: 60vh; }
   .map-panel { order: 2; }
 }
+=======
+/* back to top link (catalog) */
+.back-to-top { text-align: center; margin: 24px 0 8px; }
+.back-to-top a { font-size: 13px; color: #075b52; text-decoration: none; padding: 8px 16px; border: 1px solid rgba(7,91,82,.3); border-radius: 999px; }
+.back-to-top a:hover { background: rgba(7,91,82,.08); }
+>>>>>>> main
