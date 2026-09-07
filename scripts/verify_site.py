@@ -315,7 +315,7 @@ def main() -> None:
 
     sitemap = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     sitemap_count = sitemap.count("<url>")
-    expected_sitemap_urls = expected_places + len(districts) + 3
+    expected_sitemap_urls = expected_places + len(districts) + 4
     if sitemap_count != expected_sitemap_urls:
         errors.append(f"sitemap URLs: expected {expected_sitemap_urls}, got {sitemap_count}")
 
@@ -323,6 +323,7 @@ def main() -> None:
     html_pages += sorted((ROOT / "places").glob("**/index.html"))
     html_pages += sorted((ROOT / "districts").glob("**/index.html"))
     html_pages += [ROOT / "downloads/index.html"]
+    html_pages += [ROOT / "map/index.html"]
     unique_html_pages = sorted(set(html_pages))
     expected_update_label = f"更新于 {data['meta']['updated_at']}"
     for page in unique_html_pages:

@@ -1860,3 +1860,19 @@ button {
     transition: none;
   }
 }
+
+/* map page */
+.map-section { padding: 0 0 40px; }
+.map-layout { display: grid; grid-template-columns: 240px 1fr; gap: 16px; align-items: stretch; }
+.map-panel { background: #fff; border: 1px solid rgba(0,0,0,.08); border-radius: 12px; padding: 16px; font-size: 13px; }
+.map-panel h2 { font-size: 14px; font-weight: 600; margin: 0 0 10px; }
+.map-panel select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 13px; margin-bottom: 14px; }
+.map-legend { line-height: 2; color: #555; }
+.map-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+.map-note { margin-top: 12px; color: #888; font-size: 12px; line-height: 1.6; }
+.map-container { position: relative; height: 520px; min-height: 400px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,.08); }
+@media (max-width: 760px) {
+  .map-layout { grid-template-columns: 1fr; }
+  .map-container { height: 60vh; }
+  .map-panel { order: 2; }
+}

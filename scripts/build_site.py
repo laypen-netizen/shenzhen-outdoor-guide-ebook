@@ -158,6 +158,7 @@ def nav(prefix: str, active: str, *, district_slug: str | None = None) -> str:
     items = (
         ("home", f"{prefix}index.html", "首页"),
         ("places", f"{prefix}places/", "全部景点"),
+        ("map", f"{prefix}map/", "地图"),
         ("districts", f"{prefix}index.html#districts", "十区指南"),
         ("downloads", f"{prefix}downloads/", "电子书附件"),
     )
@@ -309,6 +310,39 @@ def gcj02_to_wgs84(lat: float, lng: float) -> tuple[float, float]:
     d_lat = (d_lat * 180.0) / ((a * (1 - ee)) / (magic * sqrt_magic) * pi)
     d_lng = (d_lng * 180.0) / (a / sqrt_magic * math.cos(rad_lat) * pi)
     return lat - d_lat, lng - d_lng
+
+
+def wgs84_to_gcj02(lat: float, lng: float) -> tuple[float, float]:
+    """Approximate WGS-84 to GCJ-02 (Mars) conversion for map rendering."""
+    pi = 3.1415926535897932384626
+    a = 6378245.0
+    ee = 0.00669342162296594323
+
+    def transform_lat(x: float, y: float) -> float:
+        ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * math.sqrt(abs(x))
+        ret += (20.0 * math.sin(6.0 * x * pi) + 20.0 * math.sin(2.0 * x * pi)) * 2.0 / 3.0
+        ret += (20.0 * math.sin(y * pi) + 40.0 * math.sin(y / 3.0 * pi)) * 2.0 / 3.0
+        ret += (160.0 * math.sin(y / 12.0 * pi) + 320.0 * math.sin(y * pi / 30.0)) * 2.0 / 3.0
+        return ret
+
+    def transform_lng(x: float, y: float) -> float:
+        ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * math.sqrt(abs(x))
+        ret += (20.0 * math.sin(6.0 * x * pi) + 20.0 * math.sin(2.0 * x * pi)) * 2.0 / 3.0
+        ret += (20.0 * math.sin(x * pi) + 40.0 * math.sin(x / 3.0 * pi)) * 2.0 / 3.0
+        ret += (150.0 * math.sin(x / 12.0 * pi) + 300.0 * math.sin(x / 30.0 * pi)) * 2.0 / 3.0
+        return ret
+
+    if lng < 72.004 or lng > 137.8347 or lat < 0.8293 or lat > 55.8271:
+        return lat, lng
+    d_lat = transform_lat(lng - 105.0, lat - 35.0)
+    d_lng = transform_lng(lng - 105.0, lat - 35.0)
+    rad_lat = lat / 180.0 * pi
+    magic = math.sin(rad_lat)
+    magic = 1 - ee * magic * magic
+    sqrt_magic = math.sqrt(magic)
+    d_lat = (d_lat * 180.0) / ((a * (1 - ee)) / (magic * sqrt_magic) * pi)
+    d_lng = (d_lng * 180.0) / (a / sqrt_magic * math.cos(rad_lat) * pi)
+    return lat + d_lat, lng + d_lng
 
 
 def geo_navigation_card(spot: dict[str, object]) -> str:
@@ -658,6 +692,39 @@ def detail_body(
     """
 
 
+def map_body(data: dict[str, object]) -> str:
+    geo_count = sum(1 for spot in data["places"] if spot.get("geo"))
+    total = len(data["places"])
+    return f"""
+    <section class="map-hero compact-hero">
+      <div class="page-width">
+        <nav class="breadcrumb" aria-label="面包屑"><a href="../index.html">首页</a><span>／</span><span aria-current="page">景点地图</span></nav>
+        <p class="eyebrow eyebrow-warm">MAP VIEW</p>
+        <h1>深圳景点地图</h1>
+        <p>全站 {total} 个景点中 {geo_count} 个已定位，点击标记可查看票务并跳转导航。</p>
+      </div>
+    </section>
+    <section class="map-section">
+      <div class="page-width map-layout">
+        <aside class="map-panel" aria-label="地图筛选">
+          <h2>筛选</h2>
+          <label class="sr-only" for="map-district-filter">按区域筛选</label>
+          <select id="map-district-filter"><option value="">全部区域</option></select>
+          <div class="map-legend">
+            <div><span class="map-dot" style="background:#185FA5" aria-hidden="true"></span>精确匹配</div>
+            <div><span class="map-dot" style="background:#1D9E75" aria-hidden="true"></span>近似匹配</div>
+            <div><span class="map-dot" style="background:#888780" aria-hidden="true"></span>开放数据来源</div>
+            <div><span class="map-dot" style="background:#BA7517" aria-hidden="true"></span>待人工核对</div>
+          </div>
+          <p class="map-note">坐标为 GCJ-02（腾讯/高德坐标系）。山径与长线绿道的标记是 POI 主点，现场请以入口指示为准。</p>
+        </aside>
+        <div class="map-container" id="map"></div>
+      </div>
+    </section>
+    <noscript><p class="page-width">查看地图需要启用 JavaScript。也可以<a href="../places/">浏览全部景点列表</a>。</p></noscript>
+    """
+
+
 def downloads_body() -> str:
     return """
     <section class="compact-hero download-hero"><div class="page-width"><nav class="breadcrumb" aria-label="面包屑"><a href="../index.html">首页</a><span>／</span><span aria-current="page">电子书附件</span></nav><p class="eyebrow eyebrow-warm">OFFLINE EDITIONS</p><h1>电子书附件下载</h1><p>完整 Web / H5 是主要阅读方式；需要离线保存、打印或二次编辑时，可下载 PDF 与 DOCX。</p></div></section>
@@ -715,6 +782,48 @@ def build() -> None:
             active="downloads",
             body=downloads_body(),
             body_class="downloads-page",
+            place_count=place_count,
+            updated_at=str(data["meta"]["updated_at"]),
+        ),
+    )
+
+    geo_places: list[dict[str, object]] = []
+    for spot in places:
+        geo = spot.get("geo")
+        if not geo or not geo.get("lat") or not geo.get("lng"):
+            continue
+        lat = float(geo["lat"])
+        lng = float(geo["lng"])
+        if geo.get("wgs84"):
+            lat, lng = wgs84_to_gcj02(lat, lng)
+        geo_places.append(
+            {
+                "no": spot["spot_number"],
+                "name": spot["name"],
+                "district": spot["district_primary"],
+                "profileLabel": spot["profile_label"],
+                "ticketLabel": str(spot["ticket"]).split("｜")[0],
+                "confidence": geo.get("confidence", "osm" if geo.get("wgs84") else "medium"),
+                "lat": round(lat, 6),
+                "lng": round(lng, 6),
+                "detailPath": spot["detail_path"],
+            }
+        )
+    write(
+        "map-places-data.js",
+        "window.MAP_PLACES = " + json.dumps(geo_places, ensure_ascii=False, separators=(",", ":")) + ";",
+    )
+    write(
+        "map/index.html",
+        shell(
+            title="深圳景点地图｜全部景点一览",
+            description="在地图上查看深圳全部户外景点、博物馆、美术馆与古村的位置、票务状态，并一键跳转导航。",
+            canonical_path="map/",
+            prefix="../",
+            active="map",
+            body=map_body(data),
+            scripts=("map-places-data.js", "map.js"),
+            body_class="map-page",
             place_count=place_count,
             updated_at=str(data["meta"]["updated_at"]),
         ),
@@ -782,7 +891,7 @@ def build() -> None:
             ),
         )
 
-    sitemap_paths = ["", "places/", "downloads/"]
+    sitemap_paths = ["", "places/", "map/", "downloads/"]
     sitemap_paths.extend(f'districts/{item["slug"]}/' for item in data["districts"])
     sitemap_paths.extend(str(spot["detail_path"]) for spot in places)
     sitemap_urls = "".join(
