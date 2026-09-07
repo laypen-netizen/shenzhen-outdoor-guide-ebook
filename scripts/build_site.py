@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import math
 import shutil
 import subprocess
 from pathlib import Path
@@ -275,6 +276,62 @@ def ticket_class(kind: str) -> str:
         "reservation": "tag-reservation",
         "closed": "tag-closed",
     }[kind]
+
+
+def gcj02_to_wgs84(lat: float, lng: float) -> tuple[float, float]:
+    """Approximate GCJ-02 (Mars) to WGS-84 conversion for structured data output."""
+    pi = 3.1415926535897932384626
+    a = 6378245.0
+    ee = 0.00669342162296594323
+
+    def transform_lat(x: float, y: float) -> float:
+        ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * math.sqrt(abs(x))
+        ret += (20.0 * math.sin(6.0 * x * pi) + 20.0 * math.sin(2.0 * x * pi)) * 2.0 / 3.0
+        ret += (20.0 * math.sin(y * pi) + 40.0 * math.sin(y / 3.0 * pi)) * 2.0 / 3.0
+        ret += (160.0 * math.sin(y / 12.0 * pi) + 320.0 * math.sin(y * pi / 30.0)) * 2.0 / 3.0
+        return ret
+
+    def transform_lng(x: float, y: float) -> float:
+        ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * math.sqrt(abs(x))
+        ret += (20.0 * math.sin(6.0 * x * pi) + 20.0 * math.sin(2.0 * x * pi)) * 2.0 / 3.0
+        ret += (20.0 * math.sin(x * pi) + 40.0 * math.sin(x / 3.0 * pi)) * 2.0 / 3.0
+        ret += (150.0 * math.sin(x / 12.0 * pi) + 300.0 * math.sin(x / 30.0 * pi)) * 2.0 / 3.0
+        return ret
+
+    if lng < 72.004 or lng > 137.8347 or lat < 0.8293 or lat > 55.8271:
+        return lat, lng
+    d_lat = transform_lat(lng - 105.0, lat - 35.0)
+    d_lng = transform_lng(lng - 105.0, lat - 35.0)
+    rad_lat = lat / 180.0 * pi
+    magic = math.sin(rad_lat)
+    magic = 1 - ee * magic * magic
+    sqrt_magic = math.sqrt(magic)
+    d_lat = (d_lat * 180.0) / ((a * (1 - ee)) / (magic * sqrt_magic) * pi)
+    d_lng = (d_lng * 180.0) / (a / sqrt_magic * math.cos(rad_lat) * pi)
+    return lat - d_lat, lng - d_lng
+
+
+def geo_navigation_card(spot: dict[str, object]) -> str:
+    """Render a map navigation card when the spot carries usable coordinates."""
+    geo = spot.get("geo")
+    if not geo or not geo.get("lat") or not geo.get("lng"):
+        return ""
+    lat = float(geo["lat"])
+    lng = float(geo["lng"])
+    marker_url = (
+        "https://apis.map.qq.com/uri/v1/marker?marker=coord:"
+        + f"{lat},{lng};title:{quote(str(spot['name']))}&referer=shenzhen.guide"
+    )
+    confidence = str(geo.get("confidence", ""))
+    if confidence == "low_name_mismatch":
+        note = "坐标经算法匹配，建议先在地图上核对后再出发。"
+    else:
+        note = "以现场路网和入口指示为准。"
+    return (
+        '<div class="fact-card"><span>地图导航</span>'
+        f'<a href="{h(marker_url)}" target="_blank" rel="noopener">在腾讯地图中打开 ↗</a>'
+        f"<small>{h(note)}</small></div>"
+    )
 
 
 def image_alt_text(spot: dict[str, object], image: dict[str, object]) -> str:
@@ -589,7 +646,7 @@ def detail_body(
         <aside class="detail-aside">
           <div class="fact-card"><span>票务标签</span><strong class="{ticket_class(str(spot['ticket_kind']))}">{h(spot['ticket'])}</strong></div>
           <div class="fact-card"><span>当前状态</span><p>{h(spot['status'])}</p></div>
-          <div class="fact-card"><span>官方参考</span><a href="{h(spot['source_url'])}" target="_blank" rel="noopener">{h(spot['source_label'])} ↗</a><small>规则可能更新，请在出发当天复核。</small></div>
+          <div class="fact-card"><span>官方参考</span><a href="{h(spot['source_url'])}" target="_blank" rel="noopener">{h(spot['source_label'])} ↗</a><small>规则可能更新，请在出发当天复核。</small></div>{geo_navigation_card(spot)}
           {image_credit}
         </aside>
       </div>
@@ -700,6 +757,13 @@ def build() -> None:
             "url": f'{BASE_URL}{spot["detail_path"]}',
             "sameAs": spot["source_url"],
         }
+        geo = spot.get("geo")
+        if geo and geo.get("lat") and geo.get("lng") and str(geo.get("confidence", "")) in {"high", "medium"}:
+            lat = float(geo["lat"])
+            lng = float(geo["lng"])
+            if geo.get("gcj02"):
+                lat, lng = gcj02_to_wgs84(lat, lng)
+            json_ld["geo"] = {"@type": "GeoCoordinates", "latitude": round(lat, 6), "longitude": round(lng, 6)}
         write(
             f'{spot["detail_path"]}index.html',
             shell(
