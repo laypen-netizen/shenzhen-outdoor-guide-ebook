@@ -1,9 +1,10 @@
 // 全站景点地图（腾讯地图 GL JS）
-// 激活步骤：在 https://lbs.qq.com 申请 Web端(JS API) key，
-// 为 laypen-netizen.github.io 配置域名白名单后，替换下面的 TMAP_KEY 值。
+// 此 key 已在腾讯位置服务控制台配置域名白名单（仅 laypen-netizen.github.io
+// 及本地调试域名可用），明文出现在前端是预期的公开凭据用法；如需轮换，
+// 在控制台重新生成并替换下方 TMAP_KEY 值。
 window.GuideMap = (function () {
   "use strict";
-  var TMAP_KEY = "Please apply for your own key at the Tencent LBS platform (lbs.qq.com) and replace this placeholder";
+  var TMAP_KEY = "LFYBZ-72PWW-QLURW-36VVI-NQZSF-6RBNN";
   var PLACEHOLDER = TMAP_KEY.indexOf("Please apply") === 0;
 
   var DOT_COLORS = {
