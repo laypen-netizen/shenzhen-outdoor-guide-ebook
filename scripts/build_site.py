@@ -481,7 +481,12 @@ def index_body(data: dict[str, object]) -> str:
 def catalog_body(data: dict[str, object]) -> str:
     district_options = "".join(f'<option value="{h(item["name"])}">{h(item["name"])}（{item["count"]}）</option>' for item in data["districts"])
     profile_options = "".join(f'<option value="{h(key)}">{h(label)}</option>' for key, label in data["profiles"].items())
-    cards = "".join(place_card(spot, "../") for spot in data["places"])
+    district_order = {str(item["name"]): index for index, item in enumerate(data["districts"])}
+    ordered_places = sorted(
+        data["places"],
+        key=lambda spot: (district_order.get(str(spot["district_primary"]), 99), str(spot["spot_number"])),
+    )
+    cards = "".join(place_card(spot, "../") for spot in ordered_places)
     return f"""
     <section class="catalog-hero compact-hero">
       <div class="page-width">
