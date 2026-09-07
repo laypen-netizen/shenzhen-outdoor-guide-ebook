@@ -365,6 +365,21 @@ def related_places(spot: dict[str, object], places: list[dict[str, object]]) -> 
     return others
 
 
+def feedback_url(spot: dict[str, object]) -> str:
+    """Pre-filled GitHub issue link for reporting outdated information."""
+    params = urlencode(
+        {
+            "title": f"信息纠错：{spot['name']}",
+            "body": (
+                f"景点：{spot['name']}（编号 {spot['spot_number']}）\n"
+                f"页面：{BASE_URL}{spot['detail_path']}\n\n"
+                "请描述有误的信息（开放状态、票务、交通、入口等），以及正确信息和来源："
+            ),
+        }
+    )
+    return f"https://github.com/laypen-netizen/shenzhen-outdoor-guide-ebook/issues/new?{params}"
+
+
 def geo_navigation_card(spot: dict[str, object]) -> str:
     """Render a map navigation card when the spot carries usable coordinates."""
     geo = spot.get("geo")
@@ -577,6 +592,7 @@ def catalog_body(data: dict[str, object]) -> str:
         <div class="catalog-results">
           <div class="results-toolbar"><p id="results-count" role="status" aria-live="polite">共 {data['meta']['place_count']} 个景点</p><button class="mobile-filter-button" id="mobile-filter-button" type="button" aria-expanded="false" aria-controls="filter-panel">筛选</button></div>
           <div class="place-grid catalog-grid" id="place-grid">{cards}</div>
+          <p class="back-to-top"><a href="#main-content">↑ 回到顶部</a></p>
           <div class="empty-state" id="empty-state" hidden><strong>没有匹配的景点</strong><p>试试减少筛选条件，或换一个关键词。</p></div>
         </div>
       </div>
@@ -707,8 +723,10 @@ def detail_body(
         </div>
         <aside class="detail-aside">
           <div class="fact-card"><span>票务标签</span><strong class="{ticket_class(str(spot['ticket_kind']))}">{h(spot['ticket'])}</strong></div>
-          <div class="fact-card"><span>当前状态</span><p>{h(spot['status'])}</p></div>
+          <div class="fact-card"><span>定位速览</span><p>{h(spot['status'])}</p></div>
           <div class="fact-card"><span>官方参考</span><a href="{h(spot['source_url'])}" target="_blank" rel="noopener">{h(spot['source_label'])} ↗</a><small>规则可能更新，请在出发当天复核。</small></div>{geo_navigation_card(spot)}
+          <div class="fact-card"><span>天气查询</span><a href="https://weather.sz.gov.cn" target="_blank" rel="noopener">深圳天气 · 官方预报与预警 ↗</a><small>台风、强降雨预警以官方渠道为准。</small></div>
+          <div class="fact-card"><span>信息纠错</span><a href="{h(feedback_url(spot))}" target="_blank" rel="noopener">报告本页信息有误 ↗</a><small>开放、票务或入口信息变化欢迎反馈。</small></div>
           {image_credit}
         </aside>
       </div>
