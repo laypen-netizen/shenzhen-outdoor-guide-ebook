@@ -66,7 +66,14 @@ def versioned_asset(prefix: str, relative: str) -> str:
 
 def card_summary(value: object, limit: int = 60) -> str:
     summary = " ".join(str(value).split())
-    return summary if len(summary) <= limit else f"{summary[:limit].rstrip()}…"
+    if len(summary) <= limit:
+        return summary
+    # Prefer cutting at a sentence boundary within a slightly wider window
+    window = summary[: limit + 30]
+    cut = max(window.rfind("。"), window.rfind("！"), window.rfind("？"))
+    if cut >= 40:
+        return summary[: cut + 1]
+    return f"{summary[:limit].rstrip()}…"
 
 
 def responsive_place_image_path(path: str, width: int) -> str:
@@ -345,6 +352,53 @@ def wgs84_to_gcj02(lat: float, lng: float) -> tuple[float, float]:
     return lat + d_lat, lng + d_lng
 
 
+def haversine_km(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
+    """Great-circle distance between two points in kilometres."""
+    radius = 6371.0
+    phi1, phi2 = math.radians(lat1), math.radians(lat2)
+    d_phi = math.radians(lat2 - lat1)
+    d_lambda = math.radians(lng2 - lng1)
+    a = math.sin(d_phi / 2) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(d_lambda / 2) ** 2
+    return 2 * radius * math.asin(math.sqrt(a))
+
+
+def format_distance(km: float) -> str:
+    if km < 1:
+        return f"{int(round(km * 1000 / 50) * 50)} m"
+    return f"{km:.1f} km"
+
+
+def spot_distance(base: dict[str, object], other: dict[str, object]) -> float | None:
+    """Distance in km between two spots when both carry usable coordinates."""
+    base_geo = base.get("geo")
+    other_geo = other.get("geo")
+    if not base_geo or not other_geo:
+        return None
+    try:
+        return haversine_km(float(base_geo["lat"]), float(base_geo["lng"]), float(other_geo["lat"]), float(other_geo["lng"]))
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+def related_places(spot: dict[str, object], places: list[dict[str, object]]) -> list[tuple[dict[str, object], float | None]]:
+    """Three nearby suggestions: nearest by straight-line distance, falling back
+    to same-district neighbours when coordinates are unavailable."""
+    if spot.get("geo"):
+        others = [candidate for candidate in places if candidate["name"] != spot["name"] and candidate.get("geo")]
+        ranked = sorted(((candidate, spot_distance(spot, candidate)) for candidate in others), key=lambda item: item[1] if item[1] is not None else float("inf"))
+        if len(ranked) >= 3:
+            return ranked[:3]
+    fallback = [
+        (candidate, spot_distance(spot, candidate))
+        for candidate in places
+        if candidate["district_primary"] == spot["district_primary"] and candidate["name"] != spot["name"]
+    ][:3]
+    if fallback:
+        return fallback
+    others = [(candidate, spot_distance(spot, candidate)) for candidate in places if candidate["name"] != spot["name"]][:3]
+    return others
+
+
 def geo_navigation_card(spot: dict[str, object]) -> str:
     """Render a map navigation card when the spot carries usable coordinates."""
     geo = spot.get("geo")
@@ -379,7 +433,7 @@ def image_kind_class(image: dict[str, object]) -> str:
     return "real-photo" if str(image.get("kind", "")) in {"real_photo", "source_photo", "user_provided_photo"} else "editorial-image"
 
 
-def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> str:
+def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False, distance: float | None = None) -> str:
     image = spot["image"]
     loading = "eager" if eager else "lazy"
     fetchpriority = "high" if eager else "low"
@@ -392,6 +446,9 @@ def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> 
         loading=loading,
         fetchpriority=fetchpriority,
     )
+    area_label = str(spot["area"])
+    if distance is not None:
+        area_label = f'{area_label} · 距此约 {format_distance(distance)}'
     return f"""
     <article class="place-card" data-name="{h(spot['name'])}" data-area="{h(spot['area'])}"
       data-district="{h(spot['district_primary'])}" data-profile="{h(spot['profile_key'])}"
@@ -410,7 +467,7 @@ def place_card(spot: dict[str, object], prefix: str, *, eager: bool = False) -> 
         <h3><a href="{prefix}{h(spot['detail_path'])}">{h(spot['name'])}</a></h3>
         <p>{h(card_summary(spot['intro']))}</p>
         <div class="card-footer">
-          <span>{h(spot['area'])}</span>
+          <span>{h(area_label)}</span>
           <a href="{prefix}{h(spot['detail_path'])}" aria-label="查看{h(spot['name'])}完整介绍">完整介绍 <span aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -596,7 +653,7 @@ def detail_body(
     spot: dict[str, object],
     previous: dict[str, object] | None,
     next_spot: dict[str, object] | None,
-    related: list[dict[str, object]],
+    related: list[tuple[dict[str, object], float | None]],
 ) -> str:
     image = spot["image"]
     alt = image_alt_text(spot, image)
@@ -608,7 +665,7 @@ def detail_body(
         fetchpriority="high",
     )
     highlights = "".join(f"<li>{h(item)}</li>" for item in spot["highlights"])
-    related_cards = "".join(place_card(item, "../../") for item in related)
+    related_cards = "".join(place_card(item, "../../", distance=dist) for item, dist in related)
     image_credit = ""
     if image["kind"] == "real_photo":
         image_credit = f"""
@@ -691,7 +748,7 @@ def detail_body(
       </div>
     </section>
     <section class="section section-paper">
-      <div class="page-width"><div class="section-heading heading-row"><div><p class="eyebrow">NEARBY IDEAS</p><h2>{h(spot['district_primary'])}还可以去</h2></div><a class="text-link" href="../../districts/{h(spot['district_slug'])}/">查看本区全部景点 →</a></div><div class="place-grid related-grid">{related_cards}</div></div>
+      <div class="page-width"><div class="section-heading heading-row"><div><p class="eyebrow">NEARBY IDEAS</p><h2>附近还可以去</h2></div><a class="text-link" href="../../districts/{h(spot['district_slug'])}/">查看本区全部景点 →</a></div><div class="place-grid related-grid">{related_cards}</div></div>
     </section>
     <nav class="page-turn page-width" aria-label="景点翻页">{prev_link}{next_link}</nav>
     """
@@ -855,11 +912,7 @@ def build() -> None:
     for index, spot in enumerate(places):
         previous = places[index - 1] if index else None
         next_spot = places[index + 1] if index + 1 < len(places) else None
-        related = [
-            candidate
-            for candidate in places
-            if candidate["district_primary"] == spot["district_primary"] and candidate["name"] != spot["name"]
-        ][:3]
+        related = related_places(spot, places)
         image_path = spot["image"]["path"]
         json_ld = {
             "@context": "https://schema.org",
