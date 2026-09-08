@@ -1000,6 +1000,7 @@
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "medium",
+    "verified": true,
     "poi_name": "深圳博物馆",
     "poi_id": "10076808108619952942"
    }
@@ -1745,6 +1746,7 @@
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "medium",
+    "verified": true,
     "poi_name": "深圳市儿童乐园",
     "poi_id": "848925503868502985"
    }
@@ -2932,6 +2934,7 @@
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "medium",
+    "verified": true,
     "poi_name": "深圳市公共文化艺术创作中心(深圳画院)",
     "poi_id": "3934040311022604429"
    }
@@ -4624,6 +4627,7 @@
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "medium",
+    "verified": true,
     "poi_name": "深圳大学粤海(校区)3号艺栈",
     "poi_id": "13645010531865558086"
    }
@@ -5268,6 +5272,7 @@
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "medium",
+    "verified": true,
     "poi_name": "后海中心河公园",
     "poi_id": "5153882713881876503"
    }
@@ -6356,12 +6361,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.562803,
-    "lng": 114.23385,
+    "lat": 22.56607,
+    "lng": 114.233117,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "鸳鸯湖"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "鸳鸯谷景区-休息亭",
+    "poi_id": "2363762935350389730"
    }
   },
   {
@@ -6404,12 +6411,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.56907,
-    "lng": 114.251144,
+    "lat": 22.567432,
+    "lng": 114.234549,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "半山公园带绿道"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "盐田恩上瀑布",
+    "poi_id": "4763110920325942484"
    }
   },
   {
@@ -8578,12 +8587,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.801618,
-    "lng": 113.861937,
+    "lat": 22.798155,
+    "lng": 113.865193,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "燕川社区"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "燕川文化广场",
+    "poi_id": "2874982058136387141"
    }
   },
   {
@@ -8626,12 +8637,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.728451,
-    "lng": 113.840564,
+    "lat": 22.729023,
+    "lng": 113.840594,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "新二村"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "新二社区礼堂",
+    "poi_id": "5274444794988467207"
    }
   },
   {
@@ -8723,12 +8736,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.780856,
-    "lng": 113.840004,
+    "lat": 22.689074,
+    "lng": 113.807717,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "洪桥头村"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "桥头社区广场",
+    "poi_id": "16013409634514361777"
    }
   },
   {
@@ -9173,8 +9188,10 @@
     "lng": 114.20585,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "大运智慧公园项目建设工程-西北门"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "大运自然公园(北门)",
+    "poi_id": "15180292281960966814"
    }
   },
   {
@@ -9572,8 +9589,10 @@
     "lng": 114.266045,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "龙岗客家民俗博物馆"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "深圳市龙岗区客家民俗博物馆",
+    "poi_id": "14194827783050284471"
    }
   },
   {
@@ -10993,12 +11012,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.674845,
-    "lng": 114.108141,
+    "lat": 22.670351,
+    "lng": 114.110719,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "甘坑苗坑水库碧道"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "甘坑水库",
+    "poi_id": "6037894428023931599"
    }
   },
   {
@@ -14020,12 +14041,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.764659,
-    "lng": 113.96887,
+    "lat": 22.765189,
+    "lng": 113.969,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "聚明源餐厅(迳口古村店)"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "迳口村",
+    "poi_id": "1422416222872163041"
    }
   },
   {
@@ -14217,12 +14240,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.791641,
-    "lng": 113.865918,
+    "lat": 22.784267,
+    "lng": 113.912384,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "燕罗体育公园"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "茅洲河碧道光明区段",
+    "poi_id": "5447971342151560613"
    }
   },
   {
@@ -14462,12 +14487,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.784085,
-    "lng": 113.881562,
+    "lat": 22.781377,
+    "lng": 113.882939,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "合水口村"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "合水口文化广场",
+    "poi_id": "417217791672088626"
    }
   },
   {
@@ -15507,11 +15534,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.598384,
-    "lng": 114.465612,
-    "wgs84": true,
-    "source": "osm_nominatim",
-    "confidence": "medium"
+    "lat": 22.538303,
+    "lng": 114.483252,
+    "gcj02": true,
+    "source": "tencent_place_search",
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "大鹏南澳绿道跑步路线起点",
+    "poi_id": "13559329092338808610"
    }
   },
   {
@@ -15800,12 +15830,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.593127,
-    "lng": 114.477734,
+    "lat": 22.59704,
+    "lng": 114.472828,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "low_name_mismatch",
-    "poi_name": "王母圩"
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "王母社区",
+    "poi_id": "13142136362401877060"
    }
   },
   {
@@ -15946,11 +15978,14 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.68048,
-    "lng": 114.152013,
-    "wgs84": true,
-    "source": "osm_nominatim",
-    "confidence": "medium"
+    "lat": 22.486261,
+    "lng": 114.491686,
+    "gcj02": true,
+    "source": "tencent_place_search",
+    "confidence": "medium",
+    "verified": true,
+    "poi_name": "鹅公湾-海边沙滩木栈道和远山(打卡点)",
+    "poi_id": "12845357270655542221"
    }
   },
   {
