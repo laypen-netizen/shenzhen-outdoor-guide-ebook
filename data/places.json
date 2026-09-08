@@ -2,12 +2,12 @@
  "meta": {
   "title": "深圳户外景点指南",
   "edition": "2026 年 8 月版",
-  "updated_at": "2026-08-01",
+  "updated_at": "2026-09-08",
   "place_count": 353,
   "district_count": 10,
   "museum_count": 69,
   "art_count": 33,
-  "real_photo_count": 74,
+  "real_photo_count": 90,
   "source_photo_count": 2,
   "geo_count": 350
  },
@@ -347,13 +347,13 @@
     "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en"
    },
    "geo": {
-    "lat": 22.562852,
-    "lng": 114.080781,
+    "lat": 22.560223,
+    "lng": 114.084316,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "笔架山公园",
-    "poi_id": "13306154924852871534"
+    "poi_name": "笔架山公园-东门",
+    "verified": true
    }
   },
   {
@@ -388,13 +388,13 @@
    "detail_path": "places/006/",
    "image": {
     "path": "assets/places/006.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "梅林山公园主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "2012 深圳 梅林水库 - panoramio (1)",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A2012_%E6%B7%B1%E5%9C%B3_%E6%A2%85%E6%9E%97%E6%B0%B4%E5%BA%93_-_panoramio_(1).jpg",
+    "artist": "张元柏",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.578143,
@@ -1037,13 +1037,13 @@
    "detail_path": "places/019/",
    "image": {
     "path": "assets/places/019.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "深圳市福田区华强北博物馆主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "华强北博物馆入口",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E5%8D%8E%E5%BC%BA%E5%8C%97%E5%8D%9A%E7%89%A9%E9%A6%86%E5%85%A5%E5%8F%A3.jpg",
+    "artist": "Lhzss8",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
    },
    "geo": {
     "lat": 22.54419,
@@ -1872,13 +1872,13 @@
    "detail_path": "places/036/",
    "image": {
     "path": "assets/places/036.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "梅林绿道主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "2012 深圳 梅林水库 - panoramio",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A2012_%E6%B7%B1%E5%9C%B3_%E6%A2%85%E6%9E%97%E6%B0%B4%E5%BA%93_-_panoramio.jpg",
+    "artist": "张元柏",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.578345,
@@ -2181,13 +2181,13 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
    },
    "geo": {
-    "lat": 22.563802,
-    "lng": 114.134312,
+    "lat": 22.563963,
+    "lng": 114.136677,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "翠竹公园",
-    "poi_id": "17320218115933754733"
+    "poi_name": "翠竹公园-东门",
+    "verified": true
    }
   },
   {
@@ -2231,13 +2231,13 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
    },
    "geo": {
-    "lat": 22.593574,
-    "lng": 114.083282,
+    "lat": 22.610967,
+    "lng": 114.084374,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "银湖山郊野公园",
-    "poi_id": "10401979730958783106"
+    "poi_name": "银湖山郊野公园-北门",
+    "verified": true
    }
   },
   {
@@ -3078,13 +3078,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.57305,
-    "lng": 114.107279,
+    "lat": 22.575704,
+    "lng": 114.112496,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "medium",
-    "poi_name": "红岗公园西区",
-    "poi_id": "8926906574927307035"
+    "confidence": "high",
+    "poi_name": "红岗公园-北门",
+    "verified": true
    }
   },
   {
@@ -3127,13 +3127,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.58244,
-    "lng": 114.12749,
+    "lat": 22.583526,
+    "lng": 114.13284,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "medium",
-    "poi_name": "深圳市围岭公园",
-    "poi_id": "2242035376795844238"
+    "confidence": "high",
+    "poi_name": "深圳市围岭公园-东门",
+    "verified": true
    }
   },
   {
@@ -3572,13 +3572,13 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0/"
    },
    "geo": {
-    "lat": 22.575703,
-    "lng": 114.011241,
+    "lat": 22.584791,
+    "lng": 113.988079,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "塘朗山郊野公园",
-    "poi_id": "7332204721305123253"
+    "poi_name": "塘朗山郊野公园塘朗村登山口",
+    "verified": true
    }
   },
   {
@@ -3622,13 +3622,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.496895,
-    "lng": 113.906103,
+    "lat": 22.503155,
+    "lng": 113.912618,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "南山公园",
-    "poi_id": "3108380351726506850"
+    "poi_name": "南山公园-8号登山口",
+    "verified": true
    }
   },
   {
@@ -4363,13 +4363,13 @@
    "detail_path": "places/086/",
    "image": {
     "path": "assets/places/086.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "深圳市南山区天后博物馆主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "Main hall of Chiwan Tianhou Temple 1",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3AMain_hall_of_Chiwan_Tianhou_Temple_1.jpg",
+    "artist": "そらみみ",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
    },
    "geo": {
     "lat": 22.477938,
@@ -5708,13 +5708,13 @@
    "detail_path": "places/108/",
    "image": {
     "path": "assets/places/108.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "背仔角主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "2012 深圳 东部海岸线 - panoramio (1)",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A2012_%E6%B7%B1%E5%9C%B3_%E4%B8%9C%E9%83%A8%E6%B5%B7%E5%B2%B8%E7%BA%BF_-_panoramio_(1).jpg",
+    "artist": "张元柏",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.598005,
@@ -6612,13 +6612,13 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/2.0/"
    },
    "geo": {
-    "lat": 22.586598,
-    "lng": 113.903341,
+    "lat": 22.583171,
+    "lng": 113.902226,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "宝安公园",
-    "poi_id": "1885382322713542714"
+    "poi_name": "宝安公园-南门",
+    "verified": true
    }
   },
   {
@@ -6662,13 +6662,13 @@
     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/"
    },
    "geo": {
-    "lat": 22.674292,
-    "lng": 113.85094,
+    "lat": 22.68146,
+    "lng": 113.8519,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "凤凰山森林公园",
-    "poi_id": "16920575827622207658"
+    "poi_name": "凤凰山森林公园-西门",
+    "verified": true
    }
   },
   {
@@ -6703,13 +6703,13 @@
    "detail_path": "places/126/",
    "image": {
     "path": "assets/places/126.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "凤凰古村主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "Fenghuang village (3)",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3AFenghuang_village_(3).jpg",
+    "artist": "Wishva de Silva",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
    },
    "geo": {
     "lat": 22.69128,
@@ -6753,13 +6753,13 @@
    "detail_path": "places/127/",
    "image": {
     "path": "assets/places/127.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "清平古墟主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "SZ 深圳 Shenzhen 寶安 BaoAn 清平古墟影视城 Qing Ping Movie Town tour March 2024 R12S 666",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3ASZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E5%AF%B6%E5%AE%89_BaoAn_%E6%B8%85%E5%B9%B3%E5%8F%A4%E5%A2%9F%E5%BD%B1%E8%A7%86%E5%9F%8E_Qing_Ping_Movie_Town_tour_March_2024_R12S_666.jpg",
+    "artist": "Borshuikmen LUNGA",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0"
    },
    "geo": {
     "lat": 22.738175,
@@ -6912,13 +6912,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.650535,
-    "lng": 113.966995,
+    "lat": 22.650558,
+    "lng": 113.956339,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "阳台山森林公园",
-    "poi_id": "748852851776453603"
+    "poi_name": "阳台山森林公园-风门坳",
+    "verified": true
    }
   },
   {
@@ -7112,13 +7112,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.832019,
-    "lng": 113.893642,
+    "lat": 22.821018,
+    "lng": 113.888965,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "罗田森林公园",
-    "poi_id": "8290530517899042942"
+    "poi_name": "罗田森林公园-主入口",
+    "verified": true
    }
   },
   {
@@ -8244,13 +8244,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.594632,
-    "lng": 113.916628,
+    "lat": 22.591426,
+    "lng": 113.919322,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "尖岗山公园",
-    "poi_id": "14257821107419360058"
+    "poi_name": "尖岗山公园-宝石路入口",
+    "verified": true
    }
   },
   {
@@ -8342,13 +8342,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.608041,
-    "lng": 113.876693,
+    "lat": 22.604324,
+    "lng": 113.873519,
     "gcj02": true,
     "source": "tencent_place_search",
     "confidence": "high",
-    "poi_name": "平峦山公园",
-    "poi_id": "4084437227359384706"
+    "poi_name": "平峦山公园门",
+    "verified": true
    }
   },
   {
@@ -8440,13 +8440,13 @@
     "license_url": ""
    },
    "geo": {
-    "lat": 22.742975,
-    "lng": 113.874011,
+    "lat": 22.747756,
+    "lng": 113.87357,
     "gcj02": true,
     "source": "tencent_place_search",
-    "confidence": "medium",
-    "poi_name": "五指耙体育主题公园",
-    "poi_id": "7514485150556916629"
+    "confidence": "high",
+    "poi_name": "五指耙公园-北1门",
+    "verified": true
    }
   },
   {
@@ -11053,13 +11053,13 @@
    "detail_path": "places/208/",
    "image": {
     "path": "assets/places/208.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "龙城公园绿道主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "龙城公园 long cheng gong yuan - panoramio",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E9%BE%99%E5%9F%8E%E5%85%AC%E5%9B%AD_long_cheng_gong_yuan_-_panoramio.jpg",
+    "artist": "wanghongliu",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.717485,
@@ -11302,13 +11302,13 @@
    "detail_path": "places/213/",
    "image": {
     "path": "assets/places/213.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "鳌湖艺术村主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "SZ 深圳 Shenzhen 龍華 Longhua 觀瀾 Guanlan 牛湖 Niuhu 藝術村 New Who Art Village 啟明街 Qiming Street January 2024 R12S 04",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3ASZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E9%BE%8D%E8%8F%AF_Longhua_%E8%A7%80%E7%80%BE_Guanlan_%E7%89%9B%E6%B9%96_Niuhu_%E8%97%9D%E8%A1%93%E6%9D%91_New_Who_Art_Village_%E5%95%9F%E6%98%8E%E8%A1%97_Qiming_Street_January_2024_R12S_04.jpg",
+    "artist": "Singkabee Liam H Tonga",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0"
    },
    "geo": {
     "lat": 22.730407,
@@ -11802,13 +11802,13 @@
    "detail_path": "places/223/",
    "image": {
     "path": "assets/places/223.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "深圳红木家具博物馆主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "SZ 深圳 Shenzhen 龍華區 Longhua 裕新路 286 Yuxin Road 深圳紅木家具博物館 Shenzhen Rosewood Furniture Museum sign stone name January 2024 R12S",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3ASZ_%E6%B7%B1%E5%9C%B3_Shenzhen_%E9%BE%8D%E8%8F%AF%E5%8D%80_Longhua_%E8%A3%95%E6%96%B0%E8%B7%AF_286_Yuxin_Road_%E6%B7%B1%E5%9C%B3%E7%B4%85%E6%9C%A8%E5%AE%B6%E5%85%B7%E5%8D%9A%E7%89%A9%E9%A4%A8_Shenzhen_Rosewood_Furniture_Museum_sign_stone_name_January_2024_R12S.jpg",
+    "artist": "Singkabee Liam H Tonga",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0"
    },
    "geo": {
     "lat": 22.739525,
@@ -15275,13 +15275,13 @@
    "detail_path": "places/292/",
    "image": {
     "path": "assets/places/292.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "南澳月亮湾主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "抵达南澳 - panoramio",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E6%8A%B5%E8%BE%BE%E5%8D%97%E6%BE%B3_-_panoramio.jpg",
+    "artist": "wangxinic",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.534142,
@@ -15375,13 +15375,13 @@
    "detail_path": "places/294/",
    "image": {
     "path": "assets/places/294.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "玫瑰海岸主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "Longgang, Shenzhen, Guangdong, China - panoramio",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3ALonggang%2C_Shenzhen%2C_Guangdong%2C_China_-_panoramio.jpg",
+    "artist": "justinchow",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
    },
    "geo": {
     "lat": 22.60955,
@@ -15525,13 +15525,13 @@
    "detail_path": "places/297/",
    "image": {
     "path": "assets/places/297.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "大鹏滨海绿道主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "Nan'ao Town 8",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3ANan'ao_Town_8.jpg",
+    "artist": "Mx. Granger",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0"
    },
    "geo": {
     "lat": 22.538303,
@@ -15969,13 +15969,13 @@
    "detail_path": "places/306/",
    "image": {
     "path": "assets/places/306.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "鹅公村主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "E Gong Wan, Silent, Beautiful. BBQ is allowed. - panoramio",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3AE_Gong_Wan%2C_Silent%2C_Beautiful._BBQ_is_allowed._-_panoramio.jpg",
+    "artist": "wangxinic",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.486261,
@@ -16658,13 +16658,13 @@
    "detail_path": "places/334/",
    "image": {
     "path": "assets/places/334.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "欢乐谷主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "深圳欢乐谷—正门",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E6%B7%B1%E5%9C%B3%E6%AC%A2%E4%B9%90%E8%B0%B7%E2%80%94%E6%AD%A3%E9%97%A8.jpg",
+    "artist": "古海岸遗址",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.541652,
@@ -16708,13 +16708,13 @@
    "detail_path": "places/335/",
    "image": {
     "path": "assets/places/335.jpg",
-    "kind": "editorial_illustration",
-    "kind_label": "编辑配图·非现场实景",
-    "description": "欢乐海岸主题编辑插图，非现场实景",
-    "detail_url": "",
-    "artist": "OpenAI 图像生成与本书编辑排版",
-    "license": "本书原创编辑插图",
-    "license_url": ""
+    "kind": "real_photo",
+    "kind_label": "授权实景图",
+    "description": "深圳 欢乐海岸 OCT HARBOUR - panoramio",
+    "detail_url": "https://commons.wikimedia.org/wiki/File%3A%E6%B7%B1%E5%9C%B3_%E6%AC%A2%E4%B9%90%E6%B5%B7%E5%B2%B8_OCT_HARBOUR_-_panoramio.jpg",
+    "artist": "wanghongliu",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
    },
    "geo": {
     "lat": 22.523421,
